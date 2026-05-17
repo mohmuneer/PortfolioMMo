@@ -1,800 +1,506 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohammed Muneer - Professional CV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* إعدادات الألوان الفخمة والـ Theme العام (داكن بلمسات ذهبية وزرقاء ملكية) */
+        :root {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --accent-gold: #7a8b9e;
+            --accent-blue: #38bdf8;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        <!--=============== FAVICON ===============-->
-        <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-        <!--=============== REMIXICONS ===============-->
-        <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
 
-        <!--=============== SWIPER CSS ===============-->
-        <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+        /* أنيميشن الدخول والتأثيرات الحركية */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        <!--=============== CSS ===============-->
-        <link rel="stylesheet" href="assets/css/styles.min.css">
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        <title>Responsive portfolio website Mohammed Muneer - Portfolio</title>
-    </head>
-    <body>
+        .cv-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
 
-        <!--==================== HEADER ====================-->
-        <header class="header" id="header">
-         <nav class="nav container">
-            <a href="#" class="nav__logo">MMO</a>
-            <div class="nav__menu"id="nav-menu">
-                <ul class="nav__list grid">
+        /* ================= الهيدر العلوي (مع الصورة الدائرية) ================= */
+        .cv-header {
+            background: linear-gradient(135deg, #1e293b 0%, #111827 100%);
+            padding: 40px;
+            border-bottom: 2px solid rgba(251, 191, 36, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+        }
 
-                    <li class="nav__item">
+        @media (max-width: 768px) {
+            .cv-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+        }
 
-                        <a href="#home"class="nav__link active-link">
-                            <i class="ri-home-smile-2-line"></i>Home
-                        </a>
+        /* تنسيق الصورة الشخصية الدائرية الفخمة */
+        .avatar-box {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            flex-shrink: 0;
+        }
 
-                    </li>
+        .avatar-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid var(--accent-gold);
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+            background: #273549;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
 
-                    <li class="nav__item">
-                        <a href="#skills"class="nav__link">
-                            <i class="ri-trophy-line"></i>Skills
-                        </a>
-                    </li>
+        .avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-                    <li class="nav__item">
-                        <a href="#qualification"class="nav__link">
-                            <i class="ri-book-open-line"></i>Qualification
-                        </a>
-                    </li>
+        .avatar-circle i {
+            font-size: 4.5rem;
+            color: var(--text-muted);
+        }
 
-                    <li class="nav__item">
-                        <a href="#services"class="nav__link">
-                            <i class="ri-briefcase-line"></i>Services
-                        </a>
-                    </li>
+        /* تأثير حركي عند تمرير الماوس على الصورة */
+        .avatar-box:hover .avatar-circle {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+            border-color: var(--accent-blue);
+        }
 
-                    <li class="nav__item">
-                        <a href="#projects"class="nav__link">
-                            <i class="ri-image-line"></i>Projects
-                        </a>
-                    </li>
+        .header-text h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
 
-                    <li class="nav__item">
-                        <a href="#contact"class="nav__link">
-                            <i class="ri-chat-3-line"></i>contact
-                        </a>
-                    </li>
+        .header-text .title-sub {
+            font-size: 1rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
 
-                </ul>
+        /* شبكة معلومات التواصل العلوية */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px 20px;
+        }
 
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: var(--transition);
+        }
 
-                <!--Close button-->
-                <div class="nav__close"id="nav-close">
-                    <i class="ri-close-line"></i>
-                    
+        .contact-link:hover {
+            color: var(--accent-blue);
+            transform: translateX(3px);
+        }
+
+        .contact-link i {
+            color: var(--accent-gold);
+            font-size: 1rem;
+            width: 16px;
+        }
+
+        /* ================= بدنه السيرة الذاتية (نظام العمودين والخط الزمني) ================= */
+        .cv-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            padding: 40px;
+            gap: 50px;
+        }
+
+        /* خط المنتصف العمودي المستوحى من صورتك */
+        .cv-body::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 40px;
+            bottom: 40px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-gold) 0%, rgba(56, 189, 248, 0.3) 100%);
+            transform: translateX(-50%);
+        }
+
+        @media (max-width: 768px) {
+            .cv-body {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 30px 20px;
+            }
+            .cv-body::before {
+                display: none; /* إخفاء خط المنتصف في الجوال لشاشات العرض الصغيرة */
+            }
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        /* تصميم الأقسام والعناوين الفخمة */
+        .section {
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* الأشكال الهندسية الجانبية للعناوين المقتبسة من الصورة */
+        .section-title::before {
+            content: '///';
+            color: var(--accent-gold);
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(251, 191, 36, 0.4), transparent);
+        }
+
+        /* المحتوى والنصوص داخل الأقسام */
+        .content-box {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            text-align: justify;
+        }
+
+        /* تنسيق القوائم والنقاط الوظيفية */
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .info-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            top: -2px;
+        }
+
+        /* كروت الأقسام الفرعية (مثل الوظائف والتعليم) */
+        .sub-card {
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .sub-card:hover {
+            transform: translateX(5px);
+        }
+
+        .sub-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .role-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .company-duration {
+            font-size: 0.82rem;
+            color: var(--accent-blue);
+            font-weight: 500;
+        }
+
+        /* المهارات على شكل كبسولات مرنة وعصرية */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-badge {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .skill-badge:hover {
+            background: rgba(251, 191, 36, 0.1);
+            border-color: var(--accent-gold);
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        /* دوائر التقاطع المضيئة على خط المنتصف */
+        .node-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            left: calc(50% - 5px);
+            box-shadow: 0 0 10px var(--accent-gold);
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cv-container">
+        
+        <header class="cv-header">
+            <div class="avatar-box">
+               <div class="avatar-box">
+    <div class="avatar-circle">
+        <img src="mine.png" alt="Mohammed Muneer" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <i class="fa-solid fa-user-tie" style="display: none;"></i>
+    </div>
+</div>
+            </div>
+            
+            <div class="header-text">
+                <h1>MOHAMMED MUNEER</h1>
+                <div class="title-sub">Information Technology Engineer</div>
+                
+                <div class="contact-grid">
+                    <span class="contact-link"><i class="fa-solid fa-calendar-days"></i>02-January-2000</span>
+                    <a href="mailto:mohammedmuneer5577@gmail.com" class="contact-link"><i class="fa-solid fa-envelope"></i>mohammedmuneer5577@gmail.com</a>
+                    <a href="tel:00966553929565" class="contact-link"><i class="fa-solid fa-phone"></i>00966553929565</a>
+                    <span class="contact-link"><i class="fa-solid fa-location-dot"></i>Saudi Arabia, Jeddah</span>
+                    <a href="https://www.linkedin.com/in/mohammed-al-khulaidi-696885393" target="_blank" class="contact-link"><i class="fa-brands fa-linkedin"></i>Linkedin Profile</a>
                 </div>
             </div>
-
-            <div class="nav__buttons">
-
-                <!--theme change button-->
-
-                <i class="ri-moon-line change-theme"id="theme-button"></i>
-
-                 <!--Toggle button-->
-                 <div class="nav__toggle" id="nav-toggle">
-                    <i class="ri-menu-4-line"></i>
-                     
-                 </div>
-                
-            </div>
-         </nav>
         </header>
 
-        <!--==================== MAIN ====================-->
-        <main class="main">
-            <!--==================== HOME ====================-->
-            <section class="home section" id="home">
-                <div class="home__container container grid section section__border">
-                    <div class="home__data grid">
-                        <h1 class="home__title">
-                            Hi, I’m Mohammed <br>
-                            Frontend Developer <br>
-                            Based In Taiz <br>
-                        </h1>
-                        <div class="home__blob grid">
-                            <div class="home__perfil">
-                                <img src="assets/img/perfil1.png" alt="home home perfil">
-                            </div>
-                           <img src="assets/img/shape-wawes.svg"alt="shape wawes" class="home__shape-wawes">
-                           <img src="assets/img/shape-circle.svg"alt="shape wawes" class="home__shape-circle">
+        <div class="cv-body">
+            
+            <div class="column">
+                
+                <section class="section">
+                    <h2 class="section-title">Profile Information</h2>
+                    <div class="content-box">
+                        Highly motivated and results-driven Information Technology Engineer with robust expertise in Oracle Database administration, PL/SQL development, and advanced backend web architectures using the Laravel framework. Proven experience providing professional technical support for enterprise-level ERP systems (Onyx iX) and managing virtualized server environments utilizing Oracle Linux and VMware ESXi. Proficient in network administration.
+                    </div>
+                </section>
 
+                <section class="section">
+                    <h2 class="section-title">Work Experience</h2>
+                    <div class="sub-card">
+                        <div class="sub-card-header">
+                            <div class="role-title">TECHNICAL SUPPORT ENGINEER</div>
+                            <div class="company-duration">Ultimate Solutions | 12/2024 - Present</div>
                         </div>
-
-                        <ul class="home__social">
-
-                            <a href="https://www.linkedin.com/"target="_blank" class="home__social-link">
-                                <i class="ri-linkedin-box-line"></i>
-                            </a>
-
-                            <a href="https://github.com/"target="_blank" class="home__social-link">
-                                <i class="ri-github-line"></i>
-                            </a>
-
-                            <a href="https://dribbble.com/"target="_blank" class="home__social-link">
-                                <i class="ri-dribbble-line"></i>
-                            </a>
+                        <ul class="info-list content-box">
+                            <li>Provide advanced technical support and system troubleshooting for the enterprise-level Onyx iX ERP system.</li>
+                            <li>Design, customize, and optimize system reports to meet diverse client business and financial requirements.</li>
+                            <li>Assist clients with database deployment, migration, and optimization tasks to ensure system reliability.</li>
+                            <li>Deliver professional consultation to end-users, ensuring smooth operations and high system availability.</li>
+                            <li>Collaborated with technical teams to troubleshoot database queries and resolve complex application errors.</li>
                         </ul>
                     </div>
-                     <!--==================== HOME INFO 1====================-->
-                     <div class="home__info">
-                        <div>
-                            <h3 class="home__info-title">
-                                BIOGRAPHY
-                            </h3>
-                            <p class="home__info-description">
-                               Hi, I'm Mohammed, Frontend Developer.
-                               Passionate about designing beautiful web
-                               interfaces. Based in Taiz. 
-                            </p>
-                        </div>
+                </section>
 
-                        <div>
-                            <h3 class="home__info-title">
-                                CONTACT
-                            </h3>
-                            <p class="home__info-description">
-                                Yemen-Taiz <br>
-                                Mohammed Moneer<br>
-                                +967 716126271 <br>
-                            </p>
-                        </div>
-
-                        <div>
-                            <h3 class="home__info-title">
-                                SERVICES
-                            </h3>
-                            <p class="home__info-description">
-                                Website Design <br>
-                                UI/UX Design <br>
-                                Animation <br>
-                            </p>
-                        </div>
-                     </div>
-
-                    <!--==================== HOME INFO 2====================-->
-                    <div class="home__info">
-                        <div>
-                            <h3 class="home__info-title">
-                                 YEARS OF EXPERIENCE
-                            </h3>
-                            <p class="home__info-number">
-                              04+ 
-                            </p>
-                        </div>
-
-                        <div>
-                            <h3 class="home__info-title">
-                                 COMPLETED PROJECTS
-                            </h3>
-                            <p class="home__info-number">
-                              24+
-                            </p>
-                        </div>
-
-                        <div>
-                            <h3 class="home__info-title">
-                                 COMPANIES WORKED
-                            </h3>
-                            <p class="home__info-number">
-                              02+ 
-                            </p>
-                        </div>
-
-                     </div>
-
-                </div>
-            </section>
-
-            <!--==================== SKILLS ====================-->
-            <section class="skills section" id="skills">
-                <h2 class="section__title"> Skills</h2>
-                <span class="section__subtitle">My favorite skills</span>
-
-                <div class="skills__container container grid section__border">
-                    <!--==================== SKILLS 1====================-->
-                    <div class="skills__content">
-                        <h3 class="skills__title">
-                            <i class="ri-braces-line"></i>Frontend Developer 
-                        </h3>
-
-                        <div class="skills__info">
-
-                            <div class="skills__data">
-                                <div class="skills__blob">
-                                    <img src="assets/img/html-1.svg" alt="skills image">
-                                </div>
-                                
-                                <h3 class="skills__name">HTML</h3>
-
-                                <span class="skills__subtitle">Intermediate</span>
-
-                            </div>
-
-
-
-                             <div class="skills__data">
-                                <div class="skills__blob">
-                                    <img src="assets/img/css-3.svg" alt="skills image">
-                                </div>
-                                
-                                <h3 class="skills__name">CSS</h3>
-
-                                <span class="skills__subtitle">Advanced</span>
-
-                            </div>
-
-
-                             <div class="skills__data">
-                                <div class="skills__blob">
-                                    <img src="assets/img/logo-javascript.svg" alt="skills image">
-                                </div>
-                                
-                                <h3 class="skills__name">JavaScript</h3>
-
-                                <span class="skills__subtitle">Intermediate</span>
-
-                            </div>
-
-                             <div class="skills__data">
-                                <div class="skills__blob">
-                                    <img src="assets/img/react-2.svg" alt="skills image">
-                                </div>
-                                
-                                <h3 class="skills__name">React</h3>
-
-                                <span class="skills__subtitle">Basic</span>
-
-                            </div>
-
-                             <div class="skills__data">
-                                <div class="skills__blob">
-                                    <img src="assets/img/git-icon.svg"alt="skills image">
-                                </div>
-                                
-                                <h3 class="skills__name">Git</h3>
-
-                                <span class="skills__subtitle">Intermediate</span>
-
-                            </div>       
-                        </div>
-                    </div>
-                    <!--==================== SKILLS 2====================-->
-                    <div class="skills__content">
-
-                        <h3 class="skills__title">
-                            <i class="ri-pantone-line"></i>Web Designer
-                        </h3>
-
-                        <div class="skills__info">
-
-
-                            <div class="skills__data">
-                                <div class="skills__blob">
-                                    <img src="assets/img/figma-1.svg" alt="skills image">
-                                </div>
-                                
-                                <h3 class="skills__name">Figma</h3>
-
-                                <span class="skills__subtitle">Advanced</span>
-
-                            </div>
-
-
-
-                            <div class="skills__data">
-                                <div class="skills__blob">
-                                    <img src="assets/img/sketch-2.svg" alt="skills image">
-                                </div>
-                                
-                                <h3 class="skills__name">Sketch</h3>
-
-                                <span class="skills__subtitle">Basic</span>
-
-                            </div>
-
-
-
-                            <div class="skills__data">
-                                <div class="skills__blob">
-                                    <img src="assets/img//invision.svg" alt="skills image">
-                                </div>
-                                
-                                <h3 class="skills__name">InvisionApp</h3>
-
-                                <span class="skills__subtitle">Basic</span>
-
-                            </div>
-
-
-                            <div class="skills__data">
-                                <div class="skills__blob">
-                                    <img src="assets/img/adobe-photoshop-2.svg" alt="skills image">
-                                </div>
-                                
-                                <h3 class="skills__name">Photoshop</h3>
-
-                                <span class="skills__subtitle">Intermediate</span>
-
-                            </div>
-
-                            <div class="skills__data">
-                                <div class="skills__blob">
-                                    <img src="assets/img/adobe-xd-1.svg" alt="skills image">
-                                </div>
-                                
-                                <h3 class="skills__name">Adobe XD</h3>
-
-                                <span class="skills__subtitle">Intermediate</span>
-
-                            </div>
-
-
-                            
-                        </div>
-                    </div>
-
+                <section class="section">
+                    <h2 class="section-title">Academic Qualification</h2>
                     
-                </div>
-            </section>
-
-            <!--==================== QUALIFICATION ====================-->
-            <section class="qualification section" id="qualification">
-                <h2 class="section__title">Qualification</h2>
-                <span class="section__subtitle">Experience & education</span>
-                <div class="qualification__contanier container grid section__border">
-                    <!--==================== QUALIFICATION 1 ====================-->
-
-                    <div class="qualification__content">
-
-                       <h3 class="qualification__title">
-                            <i class="ri-pencil-ruler-2-line"></i>Education</h3>
-                       <div class="qualification__info">
-
-                        <div>
-                            <h3 class="qualification__name">
-                                Master In Web Developer
-                            </h3>
-                            <span class="qualification__country">Science and Technology - University</span>
-                            <span class="qualification__year">2019 - 2023</span>
+                    <div class="sub-card" style="margin-bottom: 15px;">
+                        <div class="sub-card-header">
+                            <div class="role-title">Secondary School Graduate</div>
+                            <div class="company-duration">2017 - 2018</div>
                         </div>
-
-
-                        <div>
-                            <h3 class="qualification__name">
-                                UI/UX Design
-                            </h3>
-                            <span class="qualification__country">Science and Technology - University</span>
-                            <span class="qualification__year">2017 - 2019</span>
-                        </div>
-
-
-                        <div>
-                            <h3 class="qualification__name">
-                                Computer Engineer
-                            </h3>
-                            <span class="qualification__country">Science and Technology - University</span>
-                            <span class="qualification__year">2019 - Present</span>
-                        </div>
-
-                           
-                       </div>
-
-                        
-                    </div>
-                     <!--==================== QUALIFICATION 2 ====================-->
-
-                    <div class="qualification__content">
-                       <h3 class="qualification__title">
-                           <i class="ri-building-line"></i>Work
-                       </h3>
-                       <div class="qualification__info">
-
-                        <div>
-                            <h3 class="qualification__name">Frontend Developer</h3>
-                            <span class="qualification__country">Science and Technology - University</span>
-                            <span class="qualification__year">2019 - 2022</span>
-                        </div>
-
-                         <div>
-                            <h3 class="qualification__name">Software Engineer</h3>
-                            <span class="qualification__country">Science and Technology- University</span>
-                            <span class="qualification__year">2018 - 2020</span>
-                        </div>
-
-                         <div>
-                            <h3 class="qualification__name">Graphic Designer</h3>
-                            <span class="qualification__country">Figma - Yemen Tech</span>
-                            <span class="qualification__year">2020 - 2021</span>
-                        </div>
-                       </div>
-                    </div>
-                    
-                    
-                </div>
-                <img src="assets/img/shape-circle.svg"alt="qualification image" class="qualification__img">
-            </section>
-
-            <!--==================== SERVICES ====================-->
-            <section class="services section" id="services">
-                <h2 class="section__title">Services</h2>
-                <span class="section__subtitle">What i offer</span>
-                <div class="services__container container grid section__border">
-
-                    <div class="services__card">
-                        <i class="ri-layout-line"></i>
-                        <h2 class="services__title">
-                            UI/UX <br>
-                            Designer
-                        </h2>
-                        <p class="services__description">
-                            Service that provides the best quality and at 
-                            the request of the client, with professional 
-                            work and customer support.
-                        </p>
-                        <div class="services__border">
-                            
-                        </div>
+                        <div class="content-box">26 September School - Scientific Section</div>
                     </div>
 
-
-
-                    <div class="services__card">
-                        <i class="ri-code-line"></i>
-                        <h2 class="services__title">
-                            Website <br>
-                            Design
-                        </h2>
-                        <p class="services__description">
-                            Service that provides the best quality and at 
-                            the request of the client, with professional 
-                            work and customer support.
-                        </p>
-                        <div class="services__border">
-                            
+                    <div class="sub-card">
+                        <div class="sub-card-header">
+                            <div class="role-title">University Graduate</div>
+                            <div class="company-duration">2023 - 2024</div>
                         </div>
+                        <div class="content-box">University of Science and Technology - IT Department</div>
                     </div>
+                </section>
 
-                    <div class="services__card">
-                        <i class="ri-quill-pen-line"></i>
-                        <h2 class="services__title">
-                           Digital <br>
-                           Animator
-                        </h2>
-                        <p class="services__description">
-                            Service that provides the best quality and at 
-                            the request of the client, with professional 
-                            work and customer support.
-                        </p>
-                        <div class="services__border">
-                            
-                        </div>
-                    </div>
-
-                    
-                </div>
-                
-            </section>
-
-            <!--==================== PROJECTS ====================-->
-            <section class="projects section" id="projects">
-                <h2 class="section__title">Projects</h2>
-                <span class="section__subtitle">Most recent work</span>
-
-                <div class="container section__border">
-                    <div class="projects__container swiper">
-
-                        <div class="swiper-wrapper">
-                            <!--==================== PROJECTS 1====================-->
-                            <div class="projects__content swiper-slide">
-                                <img src="assets/img/mm1.jpg" class="projects__img">
-                                <div>
-                                    <span  class="projects__subtitle">Design</span>
-                                    <h1 class="projects__title">Professional card-Front</h1>
-                                    <a href="" class="projects__button">
-                                        View demo <i class="ri-arrow-right-line"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <!--==================== PROJECTS 2====================-->
-                            <div class="projects__content swiper-slide">
-                                <img src="assets/img/mm2.jpg" class="projects__img">
-                                <div>
-                                    <span  class="projects__subtitle">Design</span>
-                                    <h1 class="projects__title">Professional card-Back</h1>
-                                    <a href="" class="projects__button">
-                                        View demo <i class="ri-arrow-right-line"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <!--==================== PROJECTS 3====================-->
-                            <div class="projects__content swiper-slide">
-                                <img src="assets/img/3.jpg" class="projects__img">
-                                <div>
-                                    <span  class="projects__subtitle">Design</span>
-                                    <h1 class="projects__title">Professional card-Front</h1>
-                                    <a href="" class="projects__button">
-                                        View demo <i class="ri-arrow-right-line"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <!--==================== PROJECTS 4====================-->
-                            <div class="projects__content swiper-slide">
-                                <img src="assets/img/2.jpg" class="projects__img">
-                                <div>
-                                    <span  class="projects__subtitle">Design</span>
-                                    <h1 class="projects__title">Professional card-Back</h1>
-                                    <a href="" class="projects__button">
-                                        View demo <i class="ri-arrow-right-line"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <!--==================== PROJECTS 5====================-->
-                            <div class="projects__content swiper-slide">
-                                <img src="assets/img/5.jpg" class="projects__img">
-                                <div>
-                                    <span  class="projects__subtitle">Design</span>
-                                    <h1 class="projects__title">Professional card-Back</h1>
-                                    <a href="" class="projects__button">
-                                        View demo <i class="ri-arrow-right-line"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                             <!--==================== PROJECTS 6====================-->
-                             <div class="projects__content swiper-slide">
-                                <img src="assets/img/6.jpg" class="projects__img">
-                                <div>
-                                    <span  class="projects__subtitle">Design</span>
-                                    <h1 class="projects__title">Professional card-Back</h1>
-                                    <a href="" class="projects__button">
-                                        View demo <i class="ri-arrow-right-line"></i>
-                                    </a>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!--Swiper arrows-->
-
-                        <div class="swiper-button-next">
-                            <i class="ri-arrow-drop-right-line"></i>
-                        </div>
-
-                        <div class="swiper-button-prev">
-                            <i class="ri-arrow-drop-left-line"></i>
-                        </div>
-
-                        <!--Swiper pagination-->
-                        <div class="swiper-pagination">
-                            
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                
-            </section>
-
-            <!--==================== TESTIMONIAL ====================-->
-            <section class="testimonial__section">
-                <h2 class="section__title">Testimonial</h2>
-                <span class="section__subtitle">My client saying</span>
-
-                <div class="container section__border">
-                    <div class="testimonial__container swiper">
-
-                        <div class="swiper-wrapper">
-                            <!--==================== TESTIMONIAL 1====================-->
-                            <div class="testimonial__content swiper-slide">
-                                <p class="testimonial__description">
-                                    “Working with Mohammed is to give a good 
-                                    impression, I carry out my project at a good 
-                                    cost, with excellent quality and attention. 
-                                    Great service and recommended.”
-                                </p>
-                                <div>
-                                    <h3 class="testimonial__name">Ayman Adnan</h3>
-                                    <span class="testimonial__subtitle">Client</span>
-                                </div>
-                                
-                            </div>
-
-                            <!--==================== TESTIMONIAL 2====================-->
-                            <div class="testimonial__content swiper-slide">
-                                <p class="testimonial__description">
-                                    “Working with Mohammed is to give a good 
-                                    impression, I carry out my project at a good 
-                                    cost, with excellent quality and attention. 
-                                    Great service and recommended.”
-                                </p>
-                                <div>
-                                    <h3 class="testimonial__name">Salah Mohammed</h3>
-                                    <span class="testimonial__subtitle">Client</span>
-                                </div>
-                                
-                            </div>
-
-                            <!--==================== TESTIMONIAL 3====================-->
-                            <div class="testimonial__content swiper-slide">
-                                <p class="testimonial__description">
-                                    “Working with Mohammed is to give a good 
-                                    impression, I carry out my project at a good 
-                                    cost, with excellent quality and attention. 
-                                    Great service and recommended.”
-                                </p>
-                                <div>
-                                    <h3 class="testimonial__name">Majed Hassan</h3>
-                                    <span class="testimonial__subtitle">Client</span>
-                                </div>
-                                
-                            </div>
-
-
-
-
-                        </div>
-
-                        <!--swiper arrow-->
-
-                        <div class="swiper-button-next">
-                            <i class="ri-arrow-drop-right-line"></i>
-
-                        </div>
-                        <div class="swiper-button-prev">
-                            <i class="ri-arrow-drop-left-line"></i>
-                            
-                        </div>
-                        
-                    </div>
-                </div>
-               
-            </section>
-
-            <!--==================== CONTACT ====================-->
-            <section class="contact section" id="contact">
-                <h2 class="section__title">Contact Me</h2>
-                <span class="section__subtitle">Get in touch</span>
-                <div class="contact__container container grid section__border">
-                    <div class="contact__content">
-                        <h3 class="contact__title">
-                            <i class="ri-chat-3-line"></i>Talk to me
-                        </h3>
-                        <div class="contact__info">
-                            <div class="contact__data">
-                                <span class="contact__data-title">Email</span>
-                                <span class="contact__data-info">mohammedmoneeralkholedi@gmail.com</span>
-                                <a href="mailto::mohammedmoneeralkholedi@gmail.com" class="contact__button">
-                                     Write me<i class="ri-arrow-right-line"></i>
-                                 
-                            </div>
-
-                            <div class="contact__data">
-                                <span class="contact__data-title">Whatsapp</span>
-                                <span class="contact__data-info">+967 716126271</span>
-
-                                 <a href="https://api.whatsapp.com/send?phone=00967716126271&text=Hello, more information!" class="contact__button">
-                                     Write me<i class="ri-arrow-right-line"></i>
-                                 </a>
-                            </div>
-
-                            <div class="contact__data">
-                                <span class="contact__data-title">Messenger</span>
-                                <span class="contact__data-info">Mohammed Moneer Alkholedi</span>
-
-                                 <a href="https://m.me/mohmd.fac77"target="_blank" class="contact__button">
-                                     Write me<i class="ri-arrow-right-line"></i>
-                                 </a>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <div class="contact__content">
-                        <h3 class="contact__title">
-                            <i class="ri-send-plane-line"></i>Write me your project
-                        </h3>
-                        <form class="contact__form" id="contact-form">
-                            <div class="contact__form-div">
-                                <label class="contact__form-tag">Names</label>
-                                <input class="contact__form-input" type="text" name="user_name" required placeholder="Write your names"id="contact-name">
-                            </div>
-
-                            <div class="contact__form-div">
-                                <label class="contact__form-tag">Mail</label>
-                                <input class="contact__form-input" type="email" name="user_email" required placeholder="Write your email"id="contact-email">
-                            </div>
-                            <div class="contact__form-div contact__form-area">
-                                <label class="contact__form-tag">Project</label>
-                                <textarea name="user_project" placeholder="Write your project" id="contact-project"class="contact__form-input"></textarea>
-                            </div>
-
-                            <p class="contact__message" id="contact-message"></p>
-
-                            <button type="submit" class="contact__button">
-                                Submit<i class="ri-arrow-right-up-line"></i>
-                            </button>
-                        </form>
-                    </div>
-
-                </div>
-                
-            </section>
-        </main>
-
-        <!--==================== FOOTER ====================-->
-        <footer class="footer">
-            <div class="footer_container container">
-                <h1 class="footer__title">Mohammed</h1>
-                <p>Frontend Developer</p>
-                <ul class="footer__list">
-                    <li>
-                        <a href="#home" class="footer__link">Home</a>
-                    </li>
-
-                    <li>
-                        <a href="#skills" class="footer__link">Skills</a>
-                    </li>
-
-                    <li>
-                        <a href="#projects" class="footer__link">Projects</a>
-                    </li>
-                    
-                </ul>
-
-                <ul class="footer__social">
-
-                    <a href="https://www.linkedin.com/"target="_blank" class="footer__social-link">
-                        <i class="ri-linkedin-box-line"></i>
-                    </a>
-
-                    <a href="https://github.com/"target="_blank" class="footer__social-link">
-                        <i class="ri-github-line"></i>
-                    </a>
-
-                    <a href="https://dribbble.com/"target="_blank" class="footer__social-link">
-                        <i class="ri-dribbble-line"></i>
-                    </a>
-                    
-                </ul>
-                <span class="footer__copy">
-                    &#169; Copyright Mohammed Muneer Alkholedi. All rights reserved
-                </span>
-                
             </div>
-        </footer>
 
+            <div class="column">
+                
+                <section class="section">
+                    <h2 class="section-title">Technical Skills</h2>
+                    <div class="content-box">
+                        <div style="margin-bottom: 12px;">
+                            <span style="color:var(--accent-gold); font-size:0.85rem; display:block; margin-bottom:5px; font-weight:600;">Databases:</span>
+                            <div class="skills-container">
+                                <span class="skill-badge">Oracle Database (SQL, PL/SQL)</span>
+                                <span class="skill-badge">Oracle DBA</span>
+                                <span class="skill-badge">MySQL</span>
+                            </div>
+                        </div>
 
-        <!--========== SCROLL UP ==========-->
-        <a href=""class="scrollup" id="scroll-up">
-            <i class="ri-arrow-up-line"></i>
-        </a>
+                        <div style="margin-bottom: 12px;">
+                            <span style="color:var(--accent-gold); font-size:0.85rem; display:block; margin-bottom:5px; font-weight:600;">Web Development:</span>
+                            <div class="skills-container">
+                                <span class="skill-badge">Laravel Framework (Backend)</span>
+                                <span class="skill-badge">PHP</span>
+                                <span class="skill-badge">HTML5 / CSS3</span>
+                                <span class="skill-badge">JavaScript</span>
+                                <span class="skill-badge">Bootstrap</span>
+                            </div>
+                        </div>
 
-        <!--=============== SCROLLREVEAL ===============-->
-        <script src="assets/js/scrollreveal.min.js"></script>
+                        <div style="margin-bottom: 12px;">
+                            <span style="color:var(--accent-gold); font-size:0.85rem; display:block; margin-bottom:5px; font-weight:600;">Systems & Virtualization:</span>
+                            <div class="skills-container">
+                                <span class="skill-badge">VMware ESXi</span>
+                                <span class="skill-badge">Oracle Linux OS</span>
+                            </div>
+                        </div>
 
-        <!--=============== SWIPER JS ===============-->
-        <script src="assets/js/swiper-bundle.min.js"></script>
-        
-        <!--=============== EMAIL JS ===============-->
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+                        <div style="margin-bottom: 12px;">
+                            <span style="color:var(--accent-gold); font-size:0.85rem; display:block; margin-bottom:5px; font-weight:600;">Core Competencies:</span>
+                            <div class="skills-container">
+                                <span class="skill-badge">Network Administration</span>
+                                <span class="skill-badge">ERP Technical Support</span>
+                            </div>
+                        </div>
 
-        <!--=============== MAIN JS ===============-->
-        <script src="assets/js/main.js"></script>
-    </body>
+                        <div>
+                            <span style="color:var(--accent-gold); font-size:0.85rem; display:block; margin-bottom:5px; font-weight:600;">Design & Productivity:</span>
+                            <div class="skills-container">
+                                <span class="skill-badge">Adobe Photoshop</span>
+                                <span class="skill-badge">Adobe Illustrator</span>
+                                <span class="skill-badge">Microsoft Office Suite</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Personal Traits</h2>
+                    <ul class="info-list content-box">
+                        <li><strong>Reliable:</strong> Complete tasks on time.</li>
+                        <li><strong>Adaptable:</strong> Handle new changes effectively.</li>
+                        <li><strong>Motivated:</strong> Take initiative to achieve goals.</li>
+                        <li><strong>Organized:</strong> Planning and time management.</li>
+                        <li><strong>Communicative:</strong> Collaborate well with others.</li>
+                        <li><strong>Problem-solving:</strong> Analyze issues and come up with solutions.</li>
+                    </ul>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Courses</h2>
+                    <div class="content-box">
+                        <div class="sub-card" style="margin-bottom: 10px;">
+                            <div class="role-title" style="font-size:0.88rem;">Diploma of English</div>
+                            <div class="company-duration">2017 - 2018 | New Yemen Tech Institute</div>
+                        </div>
+                        <div class="sub-card" style="margin-bottom: 10px;">
+                            <div class="role-title" style="font-size:0.88rem;">Diploma of International Computer Driving License (ICDL)</div>
+                            <div class="company-duration">2021 - 2022 | University of Science and Technology</div>
+                        </div>
+                        <div class="sub-card" style="margin-bottom: 10px;">
+                            <div class="role-title" style="font-size:0.88rem;">Cyber Security</div>
+                            <div class="company-duration">07/2023 - 8/2023 | University of Science and Technology</div>
+                        </div>
+                        <div class="sub-card" style="margin-bottom: 0;">
+                            <div class="role-title" style="font-size:0.88rem;">Diploma of Accounting</div>
+                            <div class="company-duration">2023 - 2024</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section">
+                    <h2 class="section-title">Languages</h2>
+                    <ul class="info-list content-box">
+                        <li><strong>Arabic:</strong> Native</li>
+                        <li><strong>English:</strong> Professional Working Proficiency</li>
+                    </ul>
+                </section>
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
 </html>
