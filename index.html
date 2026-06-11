@@ -1,581 +1,289 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mohammed Muneer — IT Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=DM+Mono:wght@400;500&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-/* ─── Reset & Base ─────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0c0f1a;--surface:#131827;--surface2:#1a2035;--surface3:#202840;
+  --gold:#c9964a;--gold-dim:#7a5a2a;--gold-glow:rgba(201,150,74,0.12);
+  --blue:#4a9eda;--ink:#e8edf5;--ink2:#8a95ab;--ink3:#505d72;
+  --line:rgba(255,255,255,0.06);--radius:10px;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --arabic:'Tajawal',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-:root {
-  --bg:        #0c0f1a;
-  --surface:   #131827;
-  --surface2:  #1a2035;
-  --surface3:  #202840;
-  --gold:      #c9964a;
-  --gold-dim:  #7a5a2a;
-  --gold-glow: rgba(201,150,74,0.12);
-  --blue:      #4a9eda;
-  --blue-dim:  rgba(74,158,218,0.15);
-  --ink:       #e8edf5;
-  --ink2:      #8a95ab;
-  --ink3:      #505d72;
-  --line:      rgba(255,255,255,0.06);
-  --radius:    10px;
-  --mono:      'DM Mono', monospace;
-  --sans:      'DM Sans', system-ui, sans-serif;
-}
+/* RTL mode */
+html[lang="ar"]{font-family:var(--arabic)}
+html[lang="ar"] .shell{direction:rtl}
+html[lang="ar"] .exp-card::before{left:auto;right:0}
+html[lang="ar"] .sec-label::after{background:linear-gradient(to left,var(--gold-dim),transparent)}
+html[lang="ar"] .skill-group-name::after{background:linear-gradient(to left,var(--gold-dim),transparent)}
+html[lang="ar"] .c-item:hover{transform:translateX(-2px)}
+html[lang="ar"] .skill-desc{font-family:var(--arabic);font-size:12px;line-height:1.7}
+html[lang="ar"] .profile-text{font-family:var(--arabic);font-size:14.5px;line-height:2}
+html[lang="ar"] .exp-bullets li{font-family:var(--arabic);font-size:13.5px}
 
-html { scroll-behavior: smooth; }
+/* Lang toggle button */
+.lang-toggle{
+  position:fixed;top:20px;right:20px;z-index:200;
+  display:flex;align-items:center;gap:0;
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:30px;overflow:hidden;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+}
+.lang-btn{
+  padding:8px 16px;font-size:12px;font-weight:500;cursor:pointer;
+  border:none;background:none;color:var(--ink2);transition:all 0.2s;
+  font-family:var(--sans);
+}
+.lang-btn.active{background:var(--gold);color:#0c0f1a;font-weight:600}
+.lang-btn:first-child{border-radius:30px 0 0 30px}
+.lang-btn:last-child{border-radius:0 30px 30px 0;font-family:var(--arabic)}
 
-body {
-  font-family: var(--sans);
-  background: var(--bg);
-  color: var(--ink);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
+/* Shell */
+.shell{max-width:980px;margin:0 auto;padding:48px 24px 80px}
 
-/* ─── Layout Shell ─────────────────────────────────────────────────────── */
-.shell {
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 48px 24px 80px;
+/* Header */
+.header{
+  display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center;
+  padding-bottom:40px;border-bottom:1px solid var(--line);margin-bottom:52px;
+  animation:rise 0.7s ease both;
 }
+@media(max-width:600px){
+  .header{grid-template-columns:1fr;text-align:center;gap:20px}
+  .contacts{justify-content:center}
+}
+.avatar{
+  width:88px;height:88px;border-radius:50%;background:var(--surface2);
+  border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:22px;font-weight:500;color:var(--gold);
+  letter-spacing:-1px;flex-shrink:0;position:relative;
+  box-shadow:0 0 0 6px var(--gold-glow);transition:box-shadow 0.3s;
+}
+.avatar:hover{box-shadow:0 0 0 10px var(--gold-glow)}
+.avatar::after{
+  content:'';position:absolute;inset:-6px;border-radius:50%;
+  border:1px solid rgba(201,150,74,0.2);animation:pulse-ring 3s ease-in-out infinite;
+}
+@keyframes pulse-ring{0%,100%{transform:scale(1);opacity:0.5}50%{transform:scale(1.08);opacity:1}}
+.name{font-size:clamp(28px,5vw,42px);font-weight:600;letter-spacing:-0.03em;color:var(--ink);line-height:1;margin-bottom:6px}
+.name span{color:var(--gold)}
+.role{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink2);margin-bottom:18px}
+html[lang="ar"] .role{font-family:var(--arabic);letter-spacing:0;font-size:12px}
+.contacts{display:flex;flex-wrap:wrap;gap:8px 20px}
+.c-item{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink2);text-decoration:none;transition:color 0.2s}
+.c-item:hover{color:var(--gold)}
+.c-item svg{width:13px;height:13px;flex-shrink:0;color:var(--gold);opacity:0.7}
 
-/* ─── Header ───────────────────────────────────────────────────────────── */
-.header {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 36px;
-  align-items: center;
-  padding-bottom: 40px;
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 52px;
-  animation: rise 0.7s ease both;
+/* Section label */
+.sec-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:12px;
 }
+html[lang="ar"] .sec-label{font-family:var(--arabic);letter-spacing:0;font-size:11px}
+.sec-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--gold-dim),transparent)}
 
-@media (max-width: 600px) {
-  .header { grid-template-columns: 1fr; text-align: center; gap: 20px; }
-  .contacts { justify-content: center; }
-}
+/* Body grid */
+.body-grid{display:grid;grid-template-columns:1fr 300px;gap:60px}
+@media(max-width:720px){.body-grid{grid-template-columns:1fr;gap:40px}}
+.section{margin-bottom:48px}
+.section:last-child{margin-bottom:0}
 
-.avatar {
-  width: 88px; height: 88px;
-  border-radius: 50%;
-  background: var(--surface2);
-  border: 2px solid var(--gold);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono);
-  font-size: 22px;
-  font-weight: 500;
-  color: var(--gold);
-  letter-spacing: -1px;
-  flex-shrink: 0;
-  position: relative;
-  box-shadow: 0 0 0 6px var(--gold-glow);
-  transition: box-shadow 0.3s;
-}
-.avatar:hover { box-shadow: 0 0 0 10px var(--gold-glow); }
+/* Profile */
+.profile-text{font-size:14px;line-height:1.85;color:var(--ink2);font-weight:300}
+.profile-text strong{color:var(--ink);font-weight:500}
 
-.avatar::after {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  border: 1px solid rgba(201,150,74,0.2);
-  animation: pulse-ring 3s ease-in-out infinite;
+/* Experience */
+.exp-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px 22px;margin-bottom:14px;position:relative;overflow:hidden;cursor:pointer;
+  transition:border-color 0.25s,background 0.25s;
 }
+.exp-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);opacity:0;transition:opacity 0.25s}
+.exp-card:hover,.exp-card.open{border-color:rgba(201,150,74,0.3);background:var(--surface2)}
+.exp-card:hover::before,.exp-card.open::before{opacity:1}
+.exp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.exp-role{font-size:14.5px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.exp-company{font-size:12px;color:var(--blue);font-weight:400}
+.exp-date{font-family:var(--mono);font-size:10.5px;color:var(--ink3);white-space:nowrap;background:var(--surface3);padding:3px 9px;border-radius:20px;margin-top:2px}
+.exp-date.current{color:var(--gold);background:var(--gold-glow)}
+.exp-toggle{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:10px;display:flex;align-items:center;gap:6px;user-select:none}
+html[lang="ar"] .exp-toggle{font-family:var(--arabic);letter-spacing:0}
+.toggle-arrow{width:14px;height:14px;border:1px solid var(--ink3);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:9px;transition:transform 0.25s,border-color 0.25s}
+.exp-card.open .toggle-arrow{transform:rotate(180deg);border-color:var(--gold)}
+.exp-bullets{display:none;padding-top:14px;border-top:1px solid var(--line);margin-top:12px}
+.exp-card.open .exp-bullets{display:block}
+.exp-bullets ul{list-style:none}
+.exp-bullets li{font-size:13px;color:var(--ink2);line-height:1.7;padding-left:16px;position:relative;margin-bottom:5px}
+html[lang="ar"] .exp-bullets li{padding-left:0;padding-right:16px}
+.exp-bullets li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:0.6}
+html[lang="ar"] .exp-bullets li::before{left:auto;right:0}
 
-@keyframes pulse-ring {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50%       { transform: scale(1.08); opacity: 1; }
+/* Skills */
+.skill-group{margin-bottom:28px}
+.skill-group-name{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px;
 }
+html[lang="ar"] .skill-group-name{font-family:var(--arabic);letter-spacing:0;font-size:11px}
+.skill-group-name::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--gold-dim),transparent)}
+.skill-item{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);margin-bottom:8px;transition:border-color 0.2s,background 0.2s}
+.skill-item:hover{border-color:rgba(201,150,74,0.3);background:var(--surface2)}
+.skill-icon{width:32px;height:32px;border-radius:7px;background:var(--gold-glow);border:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);font-size:15px}
+.skill-body{flex:1;min-width:0}
+.skill-name{font-size:13px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.skill-desc{font-size:11.5px;color:var(--ink2);line-height:1.55}
+.skill-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.skill-tag{font-family:var(--mono);font-size:9.5px;padding:2px 7px;border-radius:4px;background:var(--surface3);color:var(--ink3);border:1px solid var(--line)}
 
-.header-meta { }
+/* Side */
+.stat-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+.stat-row:last-child{border-bottom:none}
+.stat-label{color:var(--ink2)}
+.stat-val{color:var(--ink);font-weight:500;font-family:var(--mono);font-size:12px}
+html[lang="ar"] .stat-label,html[lang="ar"] .stat-val{font-family:var(--arabic)}
 
-.name {
-  font-size: clamp(28px, 5vw, 42px);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: var(--ink);
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.name span { color: var(--gold); }
+/* Education */
+.edu-item{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.edu-icon{width:38px;height:38px;border-radius:8px;background:var(--surface2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold)}
+.edu-icon svg{width:18px;height:18px}
+.edu-title{font-size:13.5px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.edu-inst{font-size:12px;color:var(--ink2);margin-bottom:2px}
+.edu-year{font-family:var(--mono);font-size:10.5px;color:var(--blue)}
 
-.role {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink2);
-  margin-bottom: 18px;
-}
+/* Courses */
+.course-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.course-row:last-child{border-bottom:none}
+.course-num{width:22px;height:22px;border-radius:50%;background:var(--gold-glow);border:1px solid var(--gold-dim);font-family:var(--mono);font-size:10px;color:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.course-name{font-size:12.5px;color:var(--ink);font-weight:500}
+.course-inst{font-size:11px;color:var(--ink3)}
+.course-yr{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--blue);white-space:nowrap}
+html[lang="ar"] .course-yr{margin-left:0;margin-right:auto}
 
-.contacts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 20px;
-}
+/* Languages */
+.lang-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.lang-row:last-child{border-bottom:none}
+.lang-name{font-size:13px;font-weight:500;min-width:70px}
+.lang-level{font-size:11px;color:var(--ink2);flex:1}
+.lang-dots{display:flex;gap:4px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--surface3);border:1px solid var(--ink3);transition:background 0.3s,border-color 0.3s}
+.dot.on{background:var(--gold);border-color:var(--gold)}
 
-.c-item {
-  display: flex; align-items: center; gap: 7px;
-  font-size: 12.5px;
-  color: var(--ink2);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.c-item:hover { color: var(--gold); }
-.c-item svg { width: 13px; height: 13px; flex-shrink: 0; color: var(--gold); opacity: 0.7; }
+/* Traits */
+.traits-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.trait-chip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:flex;align-items:center;gap:9px;transition:border-color 0.2s,background 0.2s;cursor:default}
+.trait-chip:hover{border-color:rgba(201,150,74,0.3);background:var(--surface2)}
+.trait-chip svg{width:16px;height:16px;color:var(--gold);flex-shrink:0;opacity:0.8}
+.t-name{font-size:12.5px;font-weight:500;color:var(--ink)}
+.t-desc{font-size:10.5px;color:var(--ink3);margin-top:1px}
+html[lang="ar"] .t-name,html[lang="ar"] .t-desc{font-family:var(--arabic)}
 
-/* ─── Section label ────────────────────────────────────────────────────── */
-.sec-label {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.sec-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, var(--gold-dim), transparent);
-}
+/* Print bar */
+.print-bar{position:fixed;bottom:24px;right:20px;z-index:100;display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.print-btn{background:var(--gold);color:#0c0f1a;border:none;border-radius:40px;padding:11px 20px;font-family:var(--sans);font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 24px rgba(201,150,74,0.35);transition:transform 0.15s,box-shadow 0.15s}
+.print-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,150,74,0.45)}
+.print-btn svg{width:15px;height:15px}
 
-/* ─── Two-column body ──────────────────────────────────────────────────── */
-.body-grid {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 60px;
-}
-@media (max-width: 720px) {
-  .body-grid { grid-template-columns: 1fr; gap: 40px; }
-}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.section{animation:rise 0.6s ease both}
 
-.main-col { }
-.side-col { }
-
-/* ─── Section spacing ──────────────────────────────────────────────────── */
-.section { margin-bottom: 48px; }
-.section:last-child { margin-bottom: 0; }
-
-/* ─── Profile text ─────────────────────────────────────────────────────── */
-.profile-text {
-  font-size: 14px;
-  line-height: 1.85;
-  color: var(--ink2);
-  font-weight: 300;
-}
-.profile-text strong { color: var(--ink); font-weight: 500; }
-
-/* ─── Experience cards ─────────────────────────────────────────────────── */
-.exp-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 20px 22px;
-  margin-bottom: 14px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: border-color 0.25s, background 0.25s;
-}
-.exp-card::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: var(--gold);
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-.exp-card:hover,
-.exp-card.open {
-  border-color: rgba(201,150,74,0.3);
-  background: var(--surface2);
-}
-.exp-card:hover::before,
-.exp-card.open::before { opacity: 1; }
-
-.exp-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-}
-.exp-role {
-  font-size: 14.5px;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 3px;
-}
-.exp-company {
-  font-size: 12px;
-  color: var(--blue);
-  font-weight: 400;
-}
-.exp-date {
-  font-family: var(--mono);
-  font-size: 10.5px;
-  color: var(--ink3);
-  white-space: nowrap;
-  background: var(--surface3);
-  padding: 3px 9px;
-  border-radius: 20px;
-  margin-top: 2px;
-}
-.exp-date.current { color: var(--gold); background: var(--gold-glow); }
-
-.exp-toggle {
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--ink3);
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  user-select: none;
-}
-.toggle-arrow {
-  width: 14px; height: 14px;
-  border: 1px solid var(--ink3);
-  border-radius: 3px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 9px;
-  transition: transform 0.25s, border-color 0.25s;
-}
-.exp-card.open .toggle-arrow { transform: rotate(180deg); border-color: var(--gold); }
-
-.exp-bullets {
-  display: none;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
-  margin-top: 12px;
-}
-.exp-card.open .exp-bullets {
-  display: block;
-}
-.exp-bullets ul { list-style: none; }
-.exp-bullets li {
-  font-size: 13px;
-  color: var(--ink2);
-  line-height: 1.7;
-  padding-left: 16px;
-  position: relative;
-  margin-bottom: 5px;
-}
-.exp-bullets li::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 8px;
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: var(--gold);
-  opacity: 0.6;
-}
-
-/* ─── Skills ────────────────────────────────────────────────────────────── */
-.skill-group { margin-bottom: 28px; }
-.skill-group-name {
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 14px;
-  display: flex; align-items: center; gap: 10px;
-}
-.skill-group-name::after {
-  content: '';
-  flex: 1; height: 1px;
-  background: linear-gradient(to right, var(--gold-dim), transparent);
-}
-.skill-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 11px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  margin-bottom: 8px;
-  transition: border-color 0.2s, background 0.2s;
-}
-.skill-item:hover {
-  border-color: rgba(201,150,74,0.3);
-  background: var(--surface2);
-}
-.skill-icon {
-  width: 32px; height: 32px;
-  border-radius: 7px;
-  background: var(--gold-glow);
-  border: 1px solid var(--gold-dim);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  color: var(--gold);
-  font-size: 15px;
-}
-.skill-body { flex: 1; min-width: 0; }
-.skill-name {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 3px;
-}
-.skill-desc {
-  font-size: 11.5px;
-  color: var(--ink2);
-  line-height: 1.55;
-}
-.skill-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: 6px;
-}
-.skill-tag {
-  font-family: var(--mono);
-  font-size: 9.5px;
-  padding: 2px 7px;
-  border-radius: 4px;
-  background: var(--surface3);
-  color: var(--ink3);
-  border: 1px solid var(--line);
-}
-
-/* ─── Side: About me stats ──────────────────────────────────────────────── */
-.stat-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 13px;
-}
-.stat-row:last-child { border-bottom: none; }
-.stat-label { color: var(--ink2); }
-.stat-val   { color: var(--ink); font-weight: 500; font-family: var(--mono); font-size: 12px; }
-
-/* ─── Education ─────────────────────────────────────────────────────────── */
-.edu-item {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 18px;
-  align-items: flex-start;
-}
-.edu-icon {
-  width: 38px; height: 38px;
-  border-radius: 8px;
-  background: var(--surface2);
-  border: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  color: var(--gold);
-}
-.edu-icon svg { width: 18px; height: 18px; }
-.edu-title  { font-size: 13.5px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
-.edu-inst   { font-size: 12px; color: var(--ink2); margin-bottom: 2px; }
-.edu-year   { font-family: var(--mono); font-size: 10.5px; color: var(--blue); }
-
-/* ─── Courses ───────────────────────────────────────────────────────────── */
-.course-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--line);
-}
-.course-row:last-child { border-bottom: none; }
-.course-num {
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: var(--gold-glow);
-  border: 1px solid var(--gold-dim);
-  font-family: var(--mono);
-  font-size: 10px;
-  color: var(--gold);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.course-name { font-size: 12.5px; color: var(--ink); font-weight: 500; }
-.course-inst { font-size: 11px; color: var(--ink3); }
-.course-yr   { margin-left: auto; font-family: var(--mono); font-size: 10.5px; color: var(--blue); white-space: nowrap; }
-
-/* ─── Languages ─────────────────────────────────────────────────────────── */
-.lang-row {
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--line);
-}
-.lang-row:last-child { border-bottom: none; }
-.lang-name  { font-size: 13px; font-weight: 500; min-width: 70px; }
-.lang-level { font-size: 11px; color: var(--ink2); flex: 1; }
-.lang-dots  { display: flex; gap: 4px; }
-.dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--surface3);
-  border: 1px solid var(--ink3);
-  transition: background 0.3s, border-color 0.3s;
-}
-.dot.on { background: var(--gold); border-color: var(--gold); }
-
-/* ─── Traits ─────────────────────────────────────────────────────────────── */
-.traits-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-.trait-chip {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 10px 12px;
-  display: flex; align-items: center; gap: 9px;
-  transition: border-color 0.2s, background 0.2s;
-  cursor: default;
-}
-.trait-chip:hover {
-  border-color: rgba(201,150,74,0.3);
-  background: var(--surface2);
-}
-.trait-chip svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; opacity: 0.8; }
-.trait-text .t-name { font-size: 12.5px; font-weight: 500; color: var(--ink); }
-.trait-text .t-desc { font-size: 10.5px; color: var(--ink3); margin-top: 1px; }
-
-/* ─── Print button ───────────────────────────────────────────────────────── */
-.print-bar {
-  position: fixed;
-  bottom: 24px; right: 24px;
-  z-index: 100;
-}
-.print-btn {
-  background: var(--gold);
-  color: #0c0f1a;
-  border: none;
-  border-radius: 40px;
-  padding: 11px 20px;
-  font-family: var(--sans);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex; align-items: center; gap: 8px;
-  box-shadow: 0 4px 24px rgba(201,150,74,0.35);
-  transition: transform 0.15s, box-shadow 0.15s;
-}
-.print-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,150,74,0.45); }
-.print-btn svg { width: 15px; height: 15px; }
-
-/* ─── Animations ─────────────────────────────────────────────────────────── */
-@keyframes rise {
-  from { opacity: 0; transform: translateY(18px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.section { animation: rise 0.6s ease both; }
-.section:nth-child(1) { animation-delay: 0.05s; }
-.section:nth-child(2) { animation-delay: 0.12s; }
-.section:nth-child(3) { animation-delay: 0.18s; }
-.side-col .section:nth-child(1) { animation-delay: 0.08s; }
-.side-col .section:nth-child(2) { animation-delay: 0.14s; }
-.side-col .section:nth-child(3) { animation-delay: 0.2s; }
-
-/* ─── Print Styles ───────────────────────────────────────────────────────── */
-@media print {
-  body { background: #fff; color: #111; }
-  .print-bar { display: none; }
-  .shell { padding: 0; }
-  .exp-bullets { max-height: none !important; padding-top: 10px !important; }
-  .exp-card { border: 1px solid #ddd; }
-  .exp-card::before { display: none; }
-  .toggle-arrow, .exp-toggle { display: none; }
-  :root {
-    --bg: #fff; --surface: #f5f5f5; --surface2: #eee;
-    --ink: #111; --ink2: #444; --ink3: #777;
-    --gold: #a07030; --blue: #1a5fa0;
-    --line: #ddd;
-  }
+@media print{
+  body{background:#fff;color:#111}
+  .print-bar,.lang-toggle{display:none}
+  .shell{padding:0}
+  .exp-bullets{display:block!important;padding-top:10px!important}
+  .exp-card{border:1px solid #ddd}
+  .toggle-arrow,.exp-toggle{display:none}
+  :root{--bg:#fff;--surface:#f5f5f5;--surface2:#eee;--ink:#111;--ink2:#444;--ink3:#777;--gold:#a07030;--blue:#1a5fa0;--line:#ddd}
 }
 </style>
 </head>
 <body>
 
+<!-- Language Toggle -->
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('ar')">ع</button>
+</div>
+
 <div class="shell">
 
-  <!-- ── HEADER ── -->
+  <!-- HEADER -->
   <header class="header">
     <div class="avatar">MM</div>
     <div class="header-meta">
       <h1 class="name">Mohammed <span>Muneer</span></h1>
-      <p class="role">Information Technology Engineer</p>
+      <p class="role" data-en="Information Technology Engineer" data-ar="مهندس تقنية المعلومات">Information Technology Engineer</p>
       <div class="contacts">
         <a href="mailto:mohammedmuneer5577@gmail.com" class="c-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
           mohammedmuneer5577@gmail.com
         </a>
         <a href="tel:00966553929565" class="c-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 12 19.79 19.79 0 0 1 1.08 3.4 2 2 0 0 1 3.07 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 16z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 12 19.79 19.79 0 0 1 1.08 3.4 2 2 0 0 1 3.07 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
           +966 553 929 565
         </a>
         <span class="c-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-          Jeddah, Saudi Arabia
+          <span data-en="Jeddah, Saudi Arabia" data-ar="جدة، المملكة العربية السعودية">Jeddah, Saudi Arabia</span>
         </span>
         <a href="https://www.linkedin.com/in/mohammed-al-khulaidi-696885393" target="_blank" class="c-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          LinkedIn Profile
+          <span data-en="LinkedIn Profile" data-ar="ملف LinkedIn">LinkedIn Profile</span>
         </a>
         <span class="c-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Born Jan 2, 2000
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span data-en="Born Jan 2, 2000" data-ar="المولود 2 يناير 2000">Born Jan 2, 2000</span>
         </span>
       </div>
     </div>
   </header>
 
-  <!-- ── BODY GRID ── -->
   <div class="body-grid">
 
-    <!-- ════ MAIN COLUMN ════ -->
+    <!-- MAIN COLUMN -->
     <div class="main-col">
 
       <!-- Profile -->
       <div class="section">
-        <div class="sec-label">Profile</div>
-        <p class="profile-text">
+        <div class="sec-label" data-en="Profile" data-ar="نبذة شخصية">Profile</div>
+        <p class="profile-text"
+          data-en="Highly motivated IT Engineer with robust expertise in <strong>Oracle Database administration</strong>, <strong>PL/SQL development</strong>, and advanced backend architectures using the <strong>Laravel</strong> framework. Proven experience providing technical support for enterprise ERP systems (<strong>Onyx iX</strong>) and managing virtualized server environments with <strong>Oracle Linux</strong> and <strong>VMware ESXi</strong>. Proficient in network administration and cross-functional team collaboration."
+          data-ar="مهندس تقنية معلومات متحمس ويمتلك خبرة واسعة في <strong>إدارة قواعد بيانات Oracle</strong>، وتطوير <strong>PL/SQL</strong>، وبناء هياكل الـ backend المتقدمة باستخدام إطار <strong>Laravel</strong>. لديه تجربة مثبتة في تقديم الدعم الفني لأنظمة ERP المؤسسية (<strong>Onyx iX</strong>)، وإدارة بيئات الخوادم الافتراضية باستخدام <strong>Oracle Linux</strong> و<strong>VMware ESXi</strong>، مع إتقان إدارة الشبكات والعمل ضمن فرق متعددة التخصصات.">
           Highly motivated IT Engineer with robust expertise in <strong>Oracle Database administration</strong>, <strong>PL/SQL development</strong>, and advanced backend architectures using the <strong>Laravel</strong> framework. Proven experience providing technical support for enterprise ERP systems (<strong>Onyx iX</strong>) and managing virtualized server environments with <strong>Oracle Linux</strong> and <strong>VMware ESXi</strong>. Proficient in network administration and cross-functional team collaboration.
         </p>
       </div>
 
       <!-- Experience -->
       <div class="section">
-        <div class="sec-label">Work Experience</div>
-
+        <div class="sec-label" data-en="Work Experience" data-ar="الخبرة العملية">Work Experience</div>
         <div class="exp-card open" onclick="toggleExp(this)">
           <div class="exp-head">
             <div>
-              <div class="exp-role">Technical Support Engineer</div>
+              <div class="exp-role" data-en="Technical Support Engineer" data-ar="مهندس دعم فني">Technical Support Engineer</div>
               <div class="exp-company">Ultimate Solutions</div>
             </div>
-            <div class="exp-date current">Dec 2024 — Present</div>
+            <div class="exp-date current" data-en="Dec 2024 — Present" data-ar="ديسمبر 2024 — حتى الآن">Dec 2024 — Present</div>
           </div>
           <div class="exp-toggle">
             <div class="toggle-arrow">▾</div>
-            <span>Details</span>
+            <span data-en="Details" data-ar="التفاصيل">Details</span>
           </div>
           <div class="exp-bullets">
             <ul>
-              <li>Provide advanced technical support and troubleshooting for the enterprise-level Onyx iX ERP system.</li>
-              <li>Design, customize, and optimize system reports to meet diverse client business and financial requirements.</li>
-              <li>Assist clients with database deployment, migration, and optimization to ensure system reliability.</li>
-              <li>Deliver professional consultation to end-users, ensuring smooth operations and high system availability.</li>
-              <li>Collaborate with technical teams to troubleshoot database queries and resolve complex application errors.</li>
+              <li data-en="Provide advanced technical support and troubleshooting for the enterprise-level Onyx iX ERP system." data-ar="تقديم الدعم الفني المتقدم وحل المشكلات لنظام Onyx iX ERP على مستوى المؤسسات.">Provide advanced technical support and troubleshooting for the enterprise-level Onyx iX ERP system.</li>
+              <li data-en="Design, customize, and optimize system reports to meet diverse client business and financial requirements." data-ar="تصميم وتخصيص وتحسين تقارير النظام لتلبية متطلبات العملاء التجارية والمالية المتنوعة.">Design, customize, and optimize system reports to meet diverse client business and financial requirements.</li>
+              <li data-en="Assist clients with database deployment, migration, and optimization to ensure system reliability." data-ar="مساعدة العملاء في نشر قواعد البيانات وترحيلها وتحسينها لضمان موثوقية النظام.">Assist clients with database deployment, migration, and optimization to ensure system reliability.</li>
+              <li data-en="Deliver professional consultation to end-users, ensuring smooth operations and high system availability." data-ar="تقديم الاستشارات الاحترافية للمستخدمين النهائيين لضمان سلاسة العمليات وتوافر النظام.">Deliver professional consultation to end-users, ensuring smooth operations and high system availability.</li>
+              <li data-en="Collaborate with technical teams to troubleshoot database queries and resolve complex application errors." data-ar="التعاون مع الفرق التقنية لتشخيص استعلامات قواعد البيانات وحل الأخطاء المعقدة في التطبيقات.">Collaborate with technical teams to troubleshoot database queries and resolve complex application errors.</li>
             </ul>
           </div>
         </div>
@@ -583,17 +291,21 @@ body {
 
       <!-- Skills -->
       <div class="section">
-        <div class="sec-label">Technical Skills</div>
+        <div class="sec-label" data-en="Technical Skills" data-ar="المهارات التقنية">Technical Skills</div>
 
         <!-- Databases -->
         <div class="skill-group">
-          <div class="skill-group-name">Databases</div>
+          <div class="skill-group-name" data-en="Databases" data-ar="قواعد البيانات">Databases</div>
 
           <div class="skill-item">
             <div class="skill-icon">🗄</div>
             <div class="skill-body">
               <div class="skill-name">Oracle Database</div>
-              <div class="skill-desc">إدارة قواعد بيانات Oracle على مستوى المؤسسات — تشمل التثبيت، الضبط، النسخ الاحتياطي والاسترداد باستخدام RMAN، وإدارة الـ tablespaces والـ users والصلاحيات.</div>
+              <div class="skill-desc"
+                data-en="Enterprise-level Oracle DB management — installation, tuning, backup & recovery using RMAN, tablespace and user management."
+                data-ar="إدارة قواعد بيانات Oracle على مستوى المؤسسات — تشمل التثبيت، الضبط، النسخ الاحتياطي والاسترداد باستخدام RMAN، وإدارة الـ tablespaces والمستخدمين.">
+                Enterprise-level Oracle DB management — installation, tuning, backup & recovery using RMAN, tablespace and user management.
+              </div>
               <div class="skill-tags"><span class="skill-tag">RMAN</span><span class="skill-tag">Tablespaces</span><span class="skill-tag">User Management</span><span class="skill-tag">Performance Tuning</span></div>
             </div>
           </div>
@@ -602,7 +314,11 @@ body {
             <div class="skill-icon">📝</div>
             <div class="skill-body">
               <div class="skill-name">SQL & PL/SQL</div>
-              <div class="skill-desc">كتابة استعلامات SQL معقدة وبرمجة PL/SQL — stored procedures، triggers، cursors، وpackages لأتمتة العمليات وبناء منطق الأعمال داخل قاعدة البيانات.</div>
+              <div class="skill-desc"
+                data-en="Writing complex SQL queries and PL/SQL programming — stored procedures, triggers, cursors, and packages to automate operations and build business logic inside the database."
+                data-ar="كتابة استعلامات SQL معقدة وبرمجة PL/SQL — stored procedures وtriggers وcursors وpackages لأتمتة العمليات وبناء منطق الأعمال داخل قاعدة البيانات.">
+                Writing complex SQL queries and PL/SQL programming — stored procedures, triggers, cursors, and packages to automate operations and build business logic inside the database.
+              </div>
               <div class="skill-tags"><span class="skill-tag">Stored Procedures</span><span class="skill-tag">Triggers</span><span class="skill-tag">Cursors</span><span class="skill-tag">Packages</span></div>
             </div>
           </div>
@@ -611,7 +327,11 @@ body {
             <div class="skill-icon">⚙️</div>
             <div class="skill-body">
               <div class="skill-name">Oracle DBA</div>
-              <div class="skill-desc">مهام مدير قواعد البيانات الكاملة — إدارة الـ instances، مراقبة الأداء، تطبيق الـ patches، وإعداد بيئات الـ standby وضمان استمرارية الخدمة.</div>
+              <div class="skill-desc"
+                data-en="Full DBA responsibilities — instance management, performance monitoring, patch application, and standby environment setup to ensure service continuity."
+                data-ar="مهام مدير قواعد البيانات الكاملة — إدارة الـ instances، مراقبة الأداء، تطبيق الـ patches، وإعداد بيئات الـ standby لضمان استمرارية الخدمة.">
+                Full DBA responsibilities — instance management, performance monitoring, patch application, and standby environment setup to ensure service continuity.
+              </div>
               <div class="skill-tags"><span class="skill-tag">Instance Mgmt</span><span class="skill-tag">Monitoring</span><span class="skill-tag">Patching</span><span class="skill-tag">High Availability</span></div>
             </div>
           </div>
@@ -620,7 +340,11 @@ body {
             <div class="skill-icon">🐬</div>
             <div class="skill-body">
               <div class="skill-name">MySQL</div>
-              <div class="skill-desc">تصميم المخططات وكتابة الاستعلامات وتحسين الأداء في بيئات تطوير الويب، مع ربطها بتطبيقات Laravel و PHP.</div>
+              <div class="skill-desc"
+                data-en="Schema design, query writing, and performance optimisation in web development environments, integrated with Laravel and PHP applications."
+                data-ar="تصميم المخططات وكتابة الاستعلامات وتحسين الأداء في بيئات تطوير الويب، مع ربطها بتطبيقات Laravel و PHP.">
+                Schema design, query writing, and performance optimisation in web development environments, integrated with Laravel and PHP applications.
+              </div>
               <div class="skill-tags"><span class="skill-tag">Schema Design</span><span class="skill-tag">Query Optimisation</span><span class="skill-tag">Laravel Integration</span></div>
             </div>
           </div>
@@ -628,14 +352,18 @@ body {
 
         <!-- Web Development -->
         <div class="skill-group">
-          <div class="skill-group-name">Web Development</div>
+          <div class="skill-group-name" data-en="Web Development" data-ar="تطوير الويب">Web Development</div>
 
           <div class="skill-item">
             <div class="skill-icon">🔧</div>
             <div class="skill-body">
               <div class="skill-name">Laravel Framework</div>
-              <div class="skill-desc">بناء تطبيقات ويب backend متكاملة باستخدام نمط MVC — Eloquent ORM للتعامل مع قواعد البيانات، Blade templates، routing، middleware، وبناء RESTful APIs.</div>
-              <div class="skill-tags"><span class="skill-tag">MVC</span><span class="skill-tag">Eloquent ORM</span><span class="skill-tag">REST API</span><span class="skill-tag">Middleware</span><span class="skill-tag">Blade</span></div>
+              <div class="skill-desc"
+                data-en="Building full backend web applications using MVC pattern — Eloquent ORM, Blade templates, routing, middleware, and RESTful API development."
+                data-ar="بناء تطبيقات ويب backend متكاملة باستخدام نمط MVC — Eloquent ORM للتعامل مع قواعد البيانات، Blade templates، routing، middleware، وبناء RESTful APIs.">
+                Building full backend web applications using MVC pattern — Eloquent ORM, Blade templates, routing, middleware, and RESTful API development.
+              </div>
+              <div class="skill-tags"><span class="skill-tag">MVC</span><span class="skill-tag">Eloquent ORM</span><span class="skill-tag">REST API</span><span class="skill-tag">Middleware</span></div>
             </div>
           </div>
 
@@ -643,7 +371,11 @@ body {
             <div class="skill-icon">🐘</div>
             <div class="skill-body">
               <div class="skill-name">PHP</div>
-              <div class="skill-desc">برمجة backend بأسلوب OOP — كتابة classes وinterfaces وtraits، معالجة النماذج، التواصل مع قواعد البيانات، وبناء سكريبتات مخصصة لأتمتة المهام.</div>
+              <div class="skill-desc"
+                data-en="Object-oriented backend programming — writing classes, interfaces and traits, form handling, database communication, and custom automation scripts."
+                data-ar="برمجة backend بأسلوب OOP — كتابة classes وinterfaces وtraits، معالجة النماذج، التواصل مع قواعد البيانات، وبناء سكريبتات مخصصة لأتمتة المهام.">
+                Object-oriented backend programming — writing classes, interfaces and traits, form handling, database communication, and custom automation scripts.
+              </div>
               <div class="skill-tags"><span class="skill-tag">OOP</span><span class="skill-tag">Custom Scripts</span><span class="skill-tag">Form Handling</span><span class="skill-tag">DB Integration</span></div>
             </div>
           </div>
@@ -652,7 +384,11 @@ body {
             <div class="skill-icon">🎨</div>
             <div class="skill-body">
               <div class="skill-name">HTML5 / CSS3</div>
-              <div class="skill-desc">بناء واجهات ويب بـ semantic HTML5 وتنسيق احترافي بـ CSS3 — Flexbox، Grid، animations، وتصاميم متجاوبة تعمل على جميع أحجام الشاشات.</div>
+              <div class="skill-desc"
+                data-en="Building web interfaces with semantic HTML5 and professional CSS3 styling — Flexbox, Grid, animations, and responsive designs for all screen sizes."
+                data-ar="بناء واجهات ويب بـ semantic HTML5 وتنسيق احترافي بـ CSS3 — Flexbox، Grid، animations، وتصاميم متجاوبة تعمل على جميع أحجام الشاشات.">
+                Building web interfaces with semantic HTML5 and professional CSS3 styling — Flexbox, Grid, animations, and responsive designs for all screen sizes.
+              </div>
               <div class="skill-tags"><span class="skill-tag">Flexbox</span><span class="skill-tag">CSS Grid</span><span class="skill-tag">Animations</span><span class="skill-tag">Responsive</span></div>
             </div>
           </div>
@@ -661,7 +397,11 @@ body {
             <div class="skill-icon">⚡</div>
             <div class="skill-body">
               <div class="skill-name">JavaScript</div>
-              <div class="skill-desc">إضافة التفاعلية للصفحات — DOM manipulation، معالجة الأحداث، طلبات AJAX، والتعامل مع APIs لتحديث المحتوى دون إعادة تحميل الصفحة.</div>
+              <div class="skill-desc"
+                data-en="Adding interactivity to pages — DOM manipulation, event handling, AJAX requests, and API integration to update content without page reload."
+                data-ar="إضافة التفاعلية للصفحات — DOM manipulation، معالجة الأحداث، طلبات AJAX، والتعامل مع APIs لتحديث المحتوى دون إعادة تحميل الصفحة.">
+                Adding interactivity to pages — DOM manipulation, event handling, AJAX requests, and API integration to update content without page reload.
+              </div>
               <div class="skill-tags"><span class="skill-tag">DOM</span><span class="skill-tag">AJAX</span><span class="skill-tag">Event Handling</span><span class="skill-tag">Fetch API</span></div>
             </div>
           </div>
@@ -670,21 +410,29 @@ body {
             <div class="skill-icon">📐</div>
             <div class="skill-body">
               <div class="skill-name">Bootstrap</div>
-              <div class="skill-desc">تسريع بناء الواجهات باستخدام مكونات Bootstrap الجاهزة — grids متجاوبة، نماذج، قوائم تنقل، وتخصيص المظهر عبر SASS variables.</div>
+              <div class="skill-desc"
+                data-en="Rapid UI development using Bootstrap's ready-made components — responsive grids, forms, navigation, and theme customisation via SASS variables."
+                data-ar="تسريع بناء الواجهات باستخدام مكونات Bootstrap الجاهزة — grids متجاوبة، نماذج، قوائم تنقل، وتخصيص المظهر عبر SASS variables.">
+                Rapid UI development using Bootstrap's ready-made components — responsive grids, forms, navigation, and theme customisation via SASS variables.
+              </div>
               <div class="skill-tags"><span class="skill-tag">Grid System</span><span class="skill-tag">Components</span><span class="skill-tag">Responsive UI</span><span class="skill-tag">SASS</span></div>
             </div>
           </div>
         </div>
 
-        <!-- Systems & Virtualization -->
+        <!-- Systems -->
         <div class="skill-group">
-          <div class="skill-group-name">Systems & Virtualization</div>
+          <div class="skill-group-name" data-en="Systems & Virtualization" data-ar="الأنظمة والمحاكاة الافتراضية">Systems & Virtualization</div>
 
           <div class="skill-item">
             <div class="skill-icon">💻</div>
             <div class="skill-body">
               <div class="skill-name">VMware ESXi</div>
-              <div class="skill-desc">إدارة بيئات الـ virtualization — إنشاء وإدارة الـ VMs، أخذ snapshots، تخصيص الموارد، وإدارة الشبكات الافتراضية عبر vSphere Client.</div>
+              <div class="skill-desc"
+                data-en="Managing virtualisation environments — creating and managing VMs, taking snapshots, allocating resources, and managing virtual networks via vSphere Client."
+                data-ar="إدارة بيئات الـ virtualization — إنشاء وإدارة الـ VMs، أخذ snapshots، تخصيص الموارد، وإدارة الشبكات الافتراضية عبر vSphere Client.">
+                Managing virtualisation environments — creating and managing VMs, taking snapshots, allocating resources, and managing virtual networks via vSphere Client.
+              </div>
               <div class="skill-tags"><span class="skill-tag">VM Provisioning</span><span class="skill-tag">Snapshots</span><span class="skill-tag">vSphere</span><span class="skill-tag">Resource Mgmt</span></div>
             </div>
           </div>
@@ -693,8 +441,12 @@ body {
             <div class="skill-icon">🐧</div>
             <div class="skill-body">
               <div class="skill-name">Oracle Linux OS</div>
-              <div class="skill-desc">إعداد وإدارة خوادم Oracle Linux — تثبيت الخدمات، كتابة shell scripts للأتمتة، إدارة الـ cron jobs، ومراقبة موارد النظام.</div>
-              <div class="skill-tags"><span class="skill-tag">Shell Scripting</span><span class="skill-tag">Service Mgmt</span><span class="skill-tag">Cron Jobs</span><span class="skill-tag">System Monitoring</span></div>
+              <div class="skill-desc"
+                data-en="Setting up and managing Oracle Linux servers — service installation, shell scripting for automation, cron job management, and system resource monitoring."
+                data-ar="إعداد وإدارة خوادم Oracle Linux — تثبيت الخدمات، كتابة shell scripts للأتمتة، إدارة الـ cron jobs، ومراقبة موارد النظام.">
+                Setting up and managing Oracle Linux servers — service installation, shell scripting for automation, cron job management, and system resource monitoring.
+              </div>
+              <div class="skill-tags"><span class="skill-tag">Shell Scripting</span><span class="skill-tag">Service Mgmt</span><span class="skill-tag">Cron Jobs</span><span class="skill-tag">Monitoring</span></div>
             </div>
           </div>
 
@@ -702,7 +454,11 @@ body {
             <div class="skill-icon">🌐</div>
             <div class="skill-body">
               <div class="skill-name">Network Administration</div>
-              <div class="skill-desc">إدارة الشبكات الأساسية — إعداد TCP/IP، DNS، DHCP، تكوين الـ switches والـ routers، وتشخيص مشاكل الاتصال وضمان استمرارية الشبكة.</div>
+              <div class="skill-desc"
+                data-en="Core network management — TCP/IP configuration, DNS, DHCP, switch and router setup, connection troubleshooting and ensuring network continuity."
+                data-ar="إدارة الشبكات الأساسية — إعداد TCP/IP، DNS، DHCP، تكوين الـ switches والـ routers، وتشخيص مشاكل الاتصال وضمان استمرارية الشبكة.">
+                Core network management — TCP/IP configuration, DNS, DHCP, switch and router setup, connection troubleshooting and ensuring network continuity.
+              </div>
               <div class="skill-tags"><span class="skill-tag">TCP/IP</span><span class="skill-tag">DNS & DHCP</span><span class="skill-tag">Routing</span><span class="skill-tag">Troubleshooting</span></div>
             </div>
           </div>
@@ -711,21 +467,29 @@ body {
             <div class="skill-icon">🏢</div>
             <div class="skill-body">
               <div class="skill-name">ERP Technical Support</div>
-              <div class="skill-desc">الدعم الفني الكامل لنظام Onyx iX ERP — تخصيص التقارير، نشر النظام وترحيل البيانات، حل أعطال التطبيق، وتدريب المستخدمين على التشغيل.</div>
+              <div class="skill-desc"
+                data-en="Full technical support for Onyx iX ERP — report customisation, system deployment and data migration, application fault resolution, and user training."
+                data-ar="الدعم الفني الكامل لنظام Onyx iX ERP — تخصيص التقارير، نشر النظام وترحيل البيانات، حل أعطال التطبيق، وتدريب المستخدمين على التشغيل.">
+                Full technical support for Onyx iX ERP — report customisation, system deployment and data migration, application fault resolution, and user training.
+              </div>
               <div class="skill-tags"><span class="skill-tag">Onyx iX</span><span class="skill-tag">Report Design</span><span class="skill-tag">Data Migration</span><span class="skill-tag">User Training</span></div>
             </div>
           </div>
         </div>
 
-        <!-- Design & Productivity -->
+        <!-- Design -->
         <div class="skill-group">
-          <div class="skill-group-name">Design & Productivity</div>
+          <div class="skill-group-name" data-en="Design & Productivity" data-ar="التصميم والإنتاجية">Design & Productivity</div>
 
           <div class="skill-item">
             <div class="skill-icon">🖼</div>
             <div class="skill-body">
               <div class="skill-name">Adobe Photoshop</div>
-              <div class="skill-desc">تحرير الصور الاحترافي، تصميم mockups للواجهات، وإنشاء مواد تسويقية — تعديل الألوان، إزالة الخلفيات، والتعامل مع الطبقات المتعددة.</div>
+              <div class="skill-desc"
+                data-en="Professional photo editing, UI mockup design, and creating marketing materials — colour correction, background removal, and multi-layer compositing."
+                data-ar="تحرير الصور الاحترافي، تصميم mockups للواجهات، وإنشاء مواد تسويقية — تعديل الألوان، إزالة الخلفيات، والتعامل مع الطبقات المتعددة.">
+                Professional photo editing, UI mockup design, and creating marketing materials — colour correction, background removal, and multi-layer compositing.
+              </div>
               <div class="skill-tags"><span class="skill-tag">Photo Editing</span><span class="skill-tag">UI Mockups</span><span class="skill-tag">Layers</span><span class="skill-tag">Color Grading</span></div>
             </div>
           </div>
@@ -734,7 +498,11 @@ body {
             <div class="skill-icon">✏️</div>
             <div class="skill-body">
               <div class="skill-name">Adobe Illustrator</div>
-              <div class="skill-desc">تصميم الجرافيك المتجهي — إنشاء الشعارات والأيقونات والمواد المطبوعة بجودة عالية قابلة للتكبير دون فقدان الوضوح.</div>
+              <div class="skill-desc"
+                data-en="Vector graphic design — creating logos, icons, and print-ready materials at high quality that scale without losing clarity."
+                data-ar="تصميم الجرافيك المتجهي — إنشاء الشعارات والأيقونات والمواد المطبوعة بجودة عالية قابلة للتكبير دون فقدان الوضوح.">
+                Vector graphic design — creating logos, icons, and print-ready materials at high quality that scale without losing clarity.
+              </div>
               <div class="skill-tags"><span class="skill-tag">Vector Graphics</span><span class="skill-tag">Logo Design</span><span class="skill-tag">Icons</span><span class="skill-tag">Print Assets</span></div>
             </div>
           </div>
@@ -743,50 +511,47 @@ body {
             <div class="skill-icon">📊</div>
             <div class="skill-body">
               <div class="skill-name">Microsoft Office Suite</div>
-              <div class="skill-desc">إعداد التقارير والوثائق الاحترافية بـ Word، تحليل البيانات وبناء الجداول والمخططات بـ Excel، وتقديم العروض التقديمية المؤثرة بـ PowerPoint.</div>
+              <div class="skill-desc"
+                data-en="Producing professional reports and documents in Word, analysing data and building charts in Excel, and delivering impactful presentations in PowerPoint."
+                data-ar="إعداد التقارير والوثائق الاحترافية بـ Word، تحليل البيانات وبناء الجداول والمخططات بـ Excel، وتقديم العروض التقديمية المؤثرة بـ PowerPoint.">
+                Producing professional reports and documents in Word, analysing data and building charts in Excel, and delivering impactful presentations in PowerPoint.
+              </div>
               <div class="skill-tags"><span class="skill-tag">Word</span><span class="skill-tag">Excel</span><span class="skill-tag">PowerPoint</span><span class="skill-tag">Data Analysis</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      
     </div><!-- /main-col -->
 
-    <!-- ════ SIDE COLUMN ════ -->
+    <!-- SIDE COLUMN -->
     <div class="side-col">
 
       <!-- Details -->
       <div class="section">
-        <div class="sec-label">Details</div>
-        <div class="stat-row"><span class="stat-label">Nationality</span><span class="stat-val">Yemeni</span></div>
-        <div class="stat-row"><span class="stat-label">Based in</span><span class="stat-val">Jeddah, KSA</span></div>
-        <div class="stat-row"><span class="stat-label">Experience</span><span class="stat-val">1+ yr</span></div>
-        <div class="stat-row"><span class="stat-label">Availability</span><span class="stat-val" style="color:var(--gold)">Open to work</span></div>
+        <div class="sec-label" data-en="Details" data-ar="معلومات شخصية">Details</div>
+        <div class="stat-row"><span class="stat-label" data-en="Nationality" data-ar="الجنسية">Nationality</span><span class="stat-val" data-en="Yemeni" data-ar="يمني">Yemeni</span></div>
+        <div class="stat-row"><span class="stat-label" data-en="Based in" data-ar="يقيم في">Based in</span><span class="stat-val" data-en="Jeddah, KSA" data-ar="جدة، السعودية">Jeddah, KSA</span></div>
+        <div class="stat-row"><span class="stat-label" data-en="Experience" data-ar="الخبرة">Experience</span><span class="stat-val" data-en="1+ yr" data-ar="+١ سنة">1+ yr</span></div>
+        <div class="stat-row"><span class="stat-label" data-en="Availability" data-ar="الحالة">Availability</span><span class="stat-val" style="color:var(--gold)" data-en="Open to work" data-ar="متاح للعمل">Open to work</span></div>
       </div>
 
       <!-- Education -->
       <div class="section">
-        <div class="sec-label">Education</div>
-
+        <div class="sec-label" data-en="Education" data-ar="التعليم">Education</div>
         <div class="edu-item">
-          <div class="edu-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-          </div>
+          <div class="edu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
           <div>
-            <div class="edu-title">B.Sc. Information Technology</div>
-            <div class="edu-inst">University of Science and Technology</div>
+            <div class="edu-title" data-en="B.Sc. Information Technology" data-ar="بكالوريوس تقنية المعلومات">B.Sc. Information Technology</div>
+            <div class="edu-inst" data-en="University of Science and Technology" data-ar="جامعة العلوم والتكنولوجيا">University of Science and Technology</div>
             <div class="edu-year">2023 – 2024</div>
           </div>
         </div>
-
         <div class="edu-item">
-          <div class="edu-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
-          </div>
+          <div class="edu-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg></div>
           <div>
-            <div class="edu-title">Secondary School — Science</div>
-            <div class="edu-inst">26 September School</div>
+            <div class="edu-title" data-en="Secondary School — Science" data-ar="الثانوية العامة — قسم العلوم">Secondary School — Science</div>
+            <div class="edu-inst" data-en="26 September School" data-ar="مدرسة 26 سبتمبر">26 September School</div>
             <div class="edu-year">2017 – 2018</div>
           </div>
         </div>
@@ -794,77 +559,71 @@ body {
 
       <!-- Certifications -->
       <div class="section">
-        <div class="sec-label">Certifications</div>
+        <div class="sec-label" data-en="Certifications" data-ar="الدورات والشهادات">Certifications</div>
         <div class="course-row">
           <div class="course-num">1</div>
-          <div><div class="course-name">Diploma of English</div><div class="course-inst">New Yemen Tech Institute</div></div>
+          <div><div class="course-name" data-en="Diploma of English" data-ar="دبلوم اللغة الإنجليزية">Diploma of English</div><div class="course-inst" data-en="New Yemen Tech Institute" data-ar="معهد اليمن الجديد للتقنية">New Yemen Tech Institute</div></div>
           <div class="course-yr">2017–18</div>
         </div>
         <div class="course-row">
           <div class="course-num">2</div>
-          <div><div class="course-name">ICDL</div><div class="course-inst">Univ. of Science & Technology</div></div>
+          <div><div class="course-name">ICDL</div><div class="course-inst" data-en="Univ. of Science & Technology" data-ar="جامعة العلوم والتكنولوجيا">Univ. of Science & Technology</div></div>
           <div class="course-yr">2021–22</div>
         </div>
         <div class="course-row">
           <div class="course-num">3</div>
-          <div><div class="course-name">Cyber Security</div><div class="course-inst">Univ. of Science & Technology</div></div>
+          <div><div class="course-name" data-en="Cyber Security" data-ar="الأمن السيبراني">Cyber Security</div><div class="course-inst" data-en="Univ. of Science & Technology" data-ar="جامعة العلوم والتكنولوجيا">Univ. of Science & Technology</div></div>
           <div class="course-yr">2023</div>
         </div>
         <div class="course-row">
           <div class="course-num">4</div>
-          <div><div class="course-name">Diploma of Accounting</div><div class="course-inst"></div></div>
+          <div><div class="course-name" data-en="Diploma of Accounting" data-ar="دبلوم المحاسبة">Diploma of Accounting</div><div class="course-inst"></div></div>
           <div class="course-yr">2023–24</div>
         </div>
       </div>
 
       <!-- Languages -->
       <div class="section">
-        <div class="sec-label">Languages</div>
+        <div class="sec-label" data-en="Languages" data-ar="اللغات">Languages</div>
         <div class="lang-row">
-          <div class="lang-name">Arabic</div>
-          <div class="lang-level">Native</div>
-          <div class="lang-dots">
-            <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
-            <div class="dot on"></div><div class="dot on"></div>
-          </div>
+          <div class="lang-name" data-en="Arabic" data-ar="العربية">Arabic</div>
+          <div class="lang-level" data-en="Native" data-ar="لغة أم">Native</div>
+          <div class="lang-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div></div>
         </div>
         <div class="lang-row">
-          <div class="lang-name">English</div>
-          <div class="lang-level">Professional</div>
-          <div class="lang-dots">
-            <div class="dot on"></div><div class="dot on"></div><div class="dot on"></div>
-            <div class="dot on"></div><div class="dot"></div>
-          </div>
+          <div class="lang-name" data-en="English" data-ar="الإنجليزية">English</div>
+          <div class="lang-level" data-en="Professional" data-ar="احترافي">Professional</div>
+          <div class="lang-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
         </div>
       </div>
 
       <!-- Traits -->
       <div class="section">
-        <div class="sec-label">Traits</div>
+        <div class="sec-label" data-en="Traits" data-ar="السمات الشخصية">Traits</div>
         <div class="traits-grid">
           <div class="trait-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <div class="trait-text"><div class="t-name">Reliable</div><div class="t-desc">On time, every time</div></div>
+            <div class="trait-text"><div class="t-name" data-en="Reliable" data-ar="موثوق">Reliable</div><div class="t-desc" data-en="On time, every time" data-ar="دائماً في الموعد">On time, every time</div></div>
           </div>
           <div class="trait-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
-            <div class="trait-text"><div class="t-name">Adaptable</div><div class="t-desc">Handles change well</div></div>
+            <div class="trait-text"><div class="t-name" data-en="Adaptable" data-ar="متكيف">Adaptable</div><div class="t-desc" data-en="Handles change well" data-ar="يتعامل مع التغيير بمرونة">Handles change well</div></div>
           </div>
           <div class="trait-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <div class="trait-text"><div class="t-name">Motivated</div><div class="t-desc">Takes initiative</div></div>
+            <div class="trait-text"><div class="t-name" data-en="Motivated" data-ar="طموح">Motivated</div><div class="t-desc" data-en="Takes initiative" data-ar="يأخذ زمام المبادرة">Takes initiative</div></div>
           </div>
           <div class="trait-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-            <div class="trait-text"><div class="t-name">Organized</div><div class="t-desc">Plans effectively</div></div>
+            <div class="trait-text"><div class="t-name" data-en="Organized" data-ar="منظم">Organized</div><div class="t-desc" data-en="Plans effectively" data-ar="يخطط باحترافية">Plans effectively</div></div>
           </div>
           <div class="trait-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <div class="trait-text"><div class="t-name">Communicative</div><div class="t-desc">Collaborates well</div></div>
+            <div class="trait-text"><div class="t-name" data-en="Communicative" data-ar="تواصلي">Communicative</div><div class="t-desc" data-en="Collaborates well" data-ar="يعمل بروح الفريق">Collaborates well</div></div>
           </div>
           <div class="trait-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            <div class="trait-text"><div class="t-name">Problem-solver</div><div class="t-desc">Finds solutions fast</div></div>
+            <div class="trait-text"><div class="t-name" data-en="Problem-solver" data-ar="محلل مشكلات">Problem-solver</div><div class="t-desc" data-en="Finds solutions fast" data-ar="يجد الحلول بسرعة">Finds solutions fast</div></div>
           </div>
         </div>
       </div>
@@ -877,30 +636,57 @@ body {
 <div class="print-bar">
   <button class="print-btn" onclick="window.print()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-    Print / Save PDF
+    <span data-en="Print / Save PDF" data-ar="طباعة / حفظ PDF">Print / Save PDF</span>
   </button>
 </div>
 
 <script>
-function toggleExp(card) {
-  card.classList.toggle('open');
+function setLang(lang) {
+  const html = document.documentElement;
+  html.setAttribute('lang', lang);
+  html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+  // Update all translatable elements
+  document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (el.tagName === 'P' || el.classList.contains('profile-text')) {
+      el.innerHTML = val;
+    } else {
+      el.textContent = val;
+    }
+  });
+
+  // Toggle button states
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', (btn.textContent.trim() === 'EN' && lang === 'en') || (btn.textContent.trim() === 'ع' && lang === 'ar'));
+  });
+
+  // Move lang toggle for RTL
+  const toggle = document.querySelector('.lang-toggle');
+  const printBar = document.querySelector('.print-bar');
+  if (lang === 'ar') {
+    toggle.style.right = 'auto'; toggle.style.left = '20px';
+    printBar.style.right = 'auto'; printBar.style.left = '20px';
+  } else {
+    toggle.style.right = '20px'; toggle.style.left = 'auto';
+    printBar.style.right = '20px'; printBar.style.left = 'auto';
+  }
 }
 
-/* Animate dots on load */
+function toggleExp(card) { card.classList.toggle('open'); }
+
+// Animate dots
 document.querySelectorAll('.lang-row').forEach(row => {
-  const dots = row.querySelectorAll('.dot.on');
-  dots.forEach((dot, i) => {
-    dot.style.opacity = '0';
-    dot.style.transform = 'scale(0)';
+  row.querySelectorAll('.dot.on').forEach((dot, i) => {
+    dot.style.opacity = '0'; dot.style.transform = 'scale(0)';
     setTimeout(() => {
       dot.style.transition = 'opacity 0.3s, transform 0.3s';
-      dot.style.opacity = '1';
-      dot.style.transform = 'scale(1)';
+      dot.style.opacity = '1'; dot.style.transform = 'scale(1)';
     }, 600 + i * 80);
   });
 });
 
-/* Scroll-reveal */
+// Scroll-reveal
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -911,8 +697,7 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.section').forEach((s, i) => {
-  s.style.opacity = '0';
-  s.style.transform = 'translateY(16px)';
+  s.style.opacity = '0'; s.style.transform = 'translateY(16px)';
   s.style.transition = `opacity 0.5s ${i * 0.06}s ease, transform 0.5s ${i * 0.06}s ease`;
   observer.observe(s);
 });
