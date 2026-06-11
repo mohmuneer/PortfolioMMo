@@ -258,13 +258,13 @@ body {
 .exp-card.open .toggle-arrow { transform: rotate(180deg); border-color: var(--gold); }
 
 .exp-bullets {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, padding-top 0.3s;
+  display: none;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
 }
 .exp-card.open .exp-bullets {
-  max-height: 400px;
-  padding-top: 14px;
+  display: block;
 }
 .exp-bullets ul { list-style: none; }
 .exp-bullets li {
@@ -286,31 +286,72 @@ body {
 }
 
 /* ─── Skills ────────────────────────────────────────────────────────────── */
-.skill-group { margin-bottom: 20px; }
+.skill-group { margin-bottom: 28px; }
 .skill-group-name {
   font-family: var(--mono);
   font-size: 10px;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ink3);
-  margin-bottom: 9px;
-}
-.badges { display: flex; flex-wrap: wrap; gap: 6px; }
-.badge {
-  font-size: 12px;
-  padding: 5px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--line);
-  color: var(--ink2);
-  background: var(--surface);
-  cursor: default;
-  transition: all 0.2s;
-  font-weight: 400;
-}
-.badge:hover {
-  border-color: var(--gold);
   color: var(--gold);
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.skill-group-name::after {
+  content: '';
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, var(--gold-dim), transparent);
+}
+.skill-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  margin-bottom: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.skill-item:hover {
+  border-color: rgba(201,150,74,0.3);
+  background: var(--surface2);
+}
+.skill-icon {
+  width: 32px; height: 32px;
+  border-radius: 7px;
   background: var(--gold-glow);
+  border: 1px solid var(--gold-dim);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: var(--gold);
+  font-size: 15px;
+}
+.skill-body { flex: 1; min-width: 0; }
+.skill-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.skill-desc {
+  font-size: 11.5px;
+  color: var(--ink2);
+  line-height: 1.55;
+}
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}
+.skill-tag {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--surface3);
+  color: var(--ink3);
+  border: 1px solid var(--line);
 }
 
 /* ─── Side: About me stats ──────────────────────────────────────────────── */
@@ -544,53 +585,178 @@ body {
       <div class="section">
         <div class="sec-label">Technical Skills</div>
 
+        <!-- Databases -->
         <div class="skill-group">
           <div class="skill-group-name">Databases</div>
-          <div class="badges">
-            <span class="badge">Oracle Database</span>
-            <span class="badge">SQL & PL/SQL</span>
-            <span class="badge">Oracle DBA</span>
-            <span class="badge">MySQL</span>
+
+          <div class="skill-item">
+            <div class="skill-icon">🗄</div>
+            <div class="skill-body">
+              <div class="skill-name">Oracle Database</div>
+              <div class="skill-desc">إدارة قواعد بيانات Oracle على مستوى المؤسسات — تشمل التثبيت، الضبط، النسخ الاحتياطي والاسترداد باستخدام RMAN، وإدارة الـ tablespaces والـ users والصلاحيات.</div>
+              <div class="skill-tags"><span class="skill-tag">RMAN</span><span class="skill-tag">Tablespaces</span><span class="skill-tag">User Management</span><span class="skill-tag">Performance Tuning</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">📝</div>
+            <div class="skill-body">
+              <div class="skill-name">SQL & PL/SQL</div>
+              <div class="skill-desc">كتابة استعلامات SQL معقدة وبرمجة PL/SQL — stored procedures، triggers، cursors، وpackages لأتمتة العمليات وبناء منطق الأعمال داخل قاعدة البيانات.</div>
+              <div class="skill-tags"><span class="skill-tag">Stored Procedures</span><span class="skill-tag">Triggers</span><span class="skill-tag">Cursors</span><span class="skill-tag">Packages</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">⚙️</div>
+            <div class="skill-body">
+              <div class="skill-name">Oracle DBA</div>
+              <div class="skill-desc">مهام مدير قواعد البيانات الكاملة — إدارة الـ instances، مراقبة الأداء، تطبيق الـ patches، وإعداد بيئات الـ standby وضمان استمرارية الخدمة.</div>
+              <div class="skill-tags"><span class="skill-tag">Instance Mgmt</span><span class="skill-tag">Monitoring</span><span class="skill-tag">Patching</span><span class="skill-tag">High Availability</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">🐬</div>
+            <div class="skill-body">
+              <div class="skill-name">MySQL</div>
+              <div class="skill-desc">تصميم المخططات وكتابة الاستعلامات وتحسين الأداء في بيئات تطوير الويب، مع ربطها بتطبيقات Laravel و PHP.</div>
+              <div class="skill-tags"><span class="skill-tag">Schema Design</span><span class="skill-tag">Query Optimisation</span><span class="skill-tag">Laravel Integration</span></div>
+            </div>
           </div>
         </div>
 
+        <!-- Web Development -->
         <div class="skill-group">
           <div class="skill-group-name">Web Development</div>
-          <div class="badges">
-            <span class="badge">Laravel</span>
-            <span class="badge">PHP</span>
-            <span class="badge">HTML5 / CSS3</span>
-            <span class="badge">JavaScript</span>
-            <span class="badge">Bootstrap</span>
+
+          <div class="skill-item">
+            <div class="skill-icon">🔧</div>
+            <div class="skill-body">
+              <div class="skill-name">Laravel Framework</div>
+              <div class="skill-desc">بناء تطبيقات ويب backend متكاملة باستخدام نمط MVC — Eloquent ORM للتعامل مع قواعد البيانات، Blade templates، routing، middleware، وبناء RESTful APIs.</div>
+              <div class="skill-tags"><span class="skill-tag">MVC</span><span class="skill-tag">Eloquent ORM</span><span class="skill-tag">REST API</span><span class="skill-tag">Middleware</span><span class="skill-tag">Blade</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">🐘</div>
+            <div class="skill-body">
+              <div class="skill-name">PHP</div>
+              <div class="skill-desc">برمجة backend بأسلوب OOP — كتابة classes وinterfaces وtraits، معالجة النماذج، التواصل مع قواعد البيانات، وبناء سكريبتات مخصصة لأتمتة المهام.</div>
+              <div class="skill-tags"><span class="skill-tag">OOP</span><span class="skill-tag">Custom Scripts</span><span class="skill-tag">Form Handling</span><span class="skill-tag">DB Integration</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">🎨</div>
+            <div class="skill-body">
+              <div class="skill-name">HTML5 / CSS3</div>
+              <div class="skill-desc">بناء واجهات ويب بـ semantic HTML5 وتنسيق احترافي بـ CSS3 — Flexbox، Grid، animations، وتصاميم متجاوبة تعمل على جميع أحجام الشاشات.</div>
+              <div class="skill-tags"><span class="skill-tag">Flexbox</span><span class="skill-tag">CSS Grid</span><span class="skill-tag">Animations</span><span class="skill-tag">Responsive</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">⚡</div>
+            <div class="skill-body">
+              <div class="skill-name">JavaScript</div>
+              <div class="skill-desc">إضافة التفاعلية للصفحات — DOM manipulation، معالجة الأحداث، طلبات AJAX، والتعامل مع APIs لتحديث المحتوى دون إعادة تحميل الصفحة.</div>
+              <div class="skill-tags"><span class="skill-tag">DOM</span><span class="skill-tag">AJAX</span><span class="skill-tag">Event Handling</span><span class="skill-tag">Fetch API</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">📐</div>
+            <div class="skill-body">
+              <div class="skill-name">Bootstrap</div>
+              <div class="skill-desc">تسريع بناء الواجهات باستخدام مكونات Bootstrap الجاهزة — grids متجاوبة، نماذج، قوائم تنقل، وتخصيص المظهر عبر SASS variables.</div>
+              <div class="skill-tags"><span class="skill-tag">Grid System</span><span class="skill-tag">Components</span><span class="skill-tag">Responsive UI</span><span class="skill-tag">SASS</span></div>
+            </div>
           </div>
         </div>
 
+        <!-- Systems & Virtualization -->
         <div class="skill-group">
           <div class="skill-group-name">Systems & Virtualization</div>
-          <div class="badges">
-            <span class="badge">VMware ESXi</span>
-            <span class="badge">Oracle Linux OS</span>
-            <span class="badge">Network Administration</span>
-            <span class="badge">ERP Technical Support</span>
+
+          <div class="skill-item">
+            <div class="skill-icon">💻</div>
+            <div class="skill-body">
+              <div class="skill-name">VMware ESXi</div>
+              <div class="skill-desc">إدارة بيئات الـ virtualization — إنشاء وإدارة الـ VMs، أخذ snapshots، تخصيص الموارد، وإدارة الشبكات الافتراضية عبر vSphere Client.</div>
+              <div class="skill-tags"><span class="skill-tag">VM Provisioning</span><span class="skill-tag">Snapshots</span><span class="skill-tag">vSphere</span><span class="skill-tag">Resource Mgmt</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">🐧</div>
+            <div class="skill-body">
+              <div class="skill-name">Oracle Linux OS</div>
+              <div class="skill-desc">إعداد وإدارة خوادم Oracle Linux — تثبيت الخدمات، كتابة shell scripts للأتمتة، إدارة الـ cron jobs، ومراقبة موارد النظام.</div>
+              <div class="skill-tags"><span class="skill-tag">Shell Scripting</span><span class="skill-tag">Service Mgmt</span><span class="skill-tag">Cron Jobs</span><span class="skill-tag">System Monitoring</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">🌐</div>
+            <div class="skill-body">
+              <div class="skill-name">Network Administration</div>
+              <div class="skill-desc">إدارة الشبكات الأساسية — إعداد TCP/IP، DNS، DHCP، تكوين الـ switches والـ routers، وتشخيص مشاكل الاتصال وضمان استمرارية الشبكة.</div>
+              <div class="skill-tags"><span class="skill-tag">TCP/IP</span><span class="skill-tag">DNS & DHCP</span><span class="skill-tag">Routing</span><span class="skill-tag">Troubleshooting</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">🏢</div>
+            <div class="skill-body">
+              <div class="skill-name">ERP Technical Support</div>
+              <div class="skill-desc">الدعم الفني الكامل لنظام Onyx iX ERP — تخصيص التقارير، نشر النظام وترحيل البيانات، حل أعطال التطبيق، وتدريب المستخدمين على التشغيل.</div>
+              <div class="skill-tags"><span class="skill-tag">Onyx iX</span><span class="skill-tag">Report Design</span><span class="skill-tag">Data Migration</span><span class="skill-tag">User Training</span></div>
+            </div>
           </div>
         </div>
 
+        <!-- Design & Productivity -->
         <div class="skill-group">
           <div class="skill-group-name">Design & Productivity</div>
-          <div class="badges">
-            <span class="badge">Adobe Photoshop</span>
-            <span class="badge">Adobe Illustrator</span>
-            <span class="badge">Microsoft Office</span>
+
+          <div class="skill-item">
+            <div class="skill-icon">🖼</div>
+            <div class="skill-body">
+              <div class="skill-name">Adobe Photoshop</div>
+              <div class="skill-desc">تحرير الصور الاحترافي، تصميم mockups للواجهات، وإنشاء مواد تسويقية — تعديل الألوان، إزالة الخلفيات، والتعامل مع الطبقات المتعددة.</div>
+              <div class="skill-tags"><span class="skill-tag">Photo Editing</span><span class="skill-tag">UI Mockups</span><span class="skill-tag">Layers</span><span class="skill-tag">Color Grading</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">✏️</div>
+            <div class="skill-body">
+              <div class="skill-name">Adobe Illustrator</div>
+              <div class="skill-desc">تصميم الجرافيك المتجهي — إنشاء الشعارات والأيقونات والمواد المطبوعة بجودة عالية قابلة للتكبير دون فقدان الوضوح.</div>
+              <div class="skill-tags"><span class="skill-tag">Vector Graphics</span><span class="skill-tag">Logo Design</span><span class="skill-tag">Icons</span><span class="skill-tag">Print Assets</span></div>
+            </div>
+          </div>
+
+          <div class="skill-item">
+            <div class="skill-icon">📊</div>
+            <div class="skill-body">
+              <div class="skill-name">Microsoft Office Suite</div>
+              <div class="skill-desc">إعداد التقارير والوثائق الاحترافية بـ Word، تحليل البيانات وبناء الجداول والمخططات بـ Excel، وتقديم العروض التقديمية المؤثرة بـ PowerPoint.</div>
+              <div class="skill-tags"><span class="skill-tag">Word</span><span class="skill-tag">Excel</span><span class="skill-tag">PowerPoint</span><span class="skill-tag">Data Analysis</span></div>
+            </div>
           </div>
         </div>
       </div>
 
+      
     </div><!-- /main-col -->
 
     <!-- ════ SIDE COLUMN ════ -->
     <div class="side-col">
 
-      <!-- Quick info -->
+      <!-- Details -->
       <div class="section">
         <div class="sec-label">Details</div>
         <div class="stat-row"><span class="stat-label">Nationality</span><span class="stat-val">Yemeni</span></div>
@@ -626,7 +792,7 @@ body {
         </div>
       </div>
 
-      <!-- Courses -->
+      <!-- Certifications -->
       <div class="section">
         <div class="sec-label">Certifications</div>
         <div class="course-row">
